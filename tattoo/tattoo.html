@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tattoo Studio • Sistema de Orçamento</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #ba6bff;
+  --primary-light: #c88eff;
+  --secondary: #6b8cff;
+  --accent: #ffd166;
+  --bg-dark: #0f0f1a;
+  --bg-card: #1a1a2e;
+  --bg-sidebar: #23233a;
+  --text-primary: #f0e6ff;
+  --text-secondary: #b8b8d4;
+  --text-muted: #6c6c8a;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --shadow-hover: 0 15px 40px rgba(186, 107, 255, 0.2);
+  --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+  --border-light: 1px solid rgba(186, 107, 255, 0.15);
+  --border-hover: 1px solid rgba(186, 107, 255, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Quicksand', sans-serif;
+}
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* HEADER PROFISSIONAL */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: rgba(15, 15, 26, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(186, 107, 255, 0.2);
+  box-shadow: var(--shadow);
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Work Sans', sans-serif;
+  line-height: 1.2;
+}
+
+.logo span {
+  font-size: 0.8rem;
+  -webkit-text-fill-color: var(--text-secondary);
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.cart-icon {
+  cursor: pointer;
+  position: relative;
+  background: rgba(186, 107, 255, 0.1);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(186, 107, 255, 0.2);
+}
+
+.cart-icon:hover {
+  background: rgba(186, 107, 255, 0.2);
+  transform: scale(1.05);
+  border-color: var(--primary);
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var(--primary);
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 20px;
+  min-width: 22px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(186, 107, 255, 0.5);
+  border: 2px solid var(--bg-dark);
+}
+
+/* CONTAINER PRINCIPAL */
+.container {
+  max-width: 1200px;
+  margin: 100px auto 60px;
+  padding: 0 20px;
+}
+
+.configurador {
+  background: var(--bg-card);
+  border-radius: 32px;
+  padding: 40px;
+  border: var(--border-light);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+/* PERGUNTAS */
+.pergunta {
+  margin-bottom: 50px;
+  opacity: 0.4;
+  transition: all 0.4s ease;
+  pointer-events: none;
+}
+
+.pergunta.ativa {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.pergunta-titulo {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.pergunta-titulo::before {
+  content: '';
+  width: 4px;
+  height: 24px;
+  background: var(--gradient);
+  border-radius: 4px;
+}
+
+.opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.opcao {
+  background: rgba(255, 255, 255, 0.03);
+  border: var(--border-light);
+  border-radius: 16px;
+  padding: 16px 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1 1 calc(20% - 12px);
+  min-width: 160px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.opcao:hover {
+  background: rgba(186, 107, 255, 0.08);
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-hover);
+  color: var(--text-primary);
+}
+
+.opcao.selecionada {
+  border-color: var(--primary);
+  background: rgba(186, 107, 255, 0.15);
+  box-shadow: 0 0 30px rgba(186, 107, 255, 0.2);
+  color: var(--text-primary);
+  border-width: 2px;
+}
+
+.opcao span {
+  font-size: 1.4rem;
+}
+
+/* ÁREA DO VISUALIZADOR */
+.preview-container {
+  margin-top: 40px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 24px;
+  padding: 30px;
+  border: 2px dashed rgba(186, 107, 255, 0.2);
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.preview-container:hover {
+  border-color: rgba(186, 107, 255, 0.4);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+#imagem-preview {
+  max-width: 100%;
+  max-height: 450px;
+  border-radius: 16px;
+  display: none;
+  animation: fadeIn 0.5s ease;
+  box-shadow: var(--shadow);
+}
+
+.placeholder-img {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.placeholder-img::before {
+  content: '🖼️';
+  font-size: 3rem;
+  opacity: 0.5;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1100;
+}
+
+.overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* SIDEBAR PROFISSIONAL */
+.sidebar {
+  position: fixed;
+  right: -400px;
+  top: 0;
+  width: 400px;
+  height: 100%;
+  background: var(--bg-sidebar);
+  padding: 30px;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1200;
+  overflow-y: auto;
+  border-left: 1px solid rgba(186, 107, 255, 0.2);
+  box-shadow: var(--shadow);
+}
+
+.sidebar.active {
+  right: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgba(186, 107, 255, 0.2);
+}
+
+.sidebar-header h3 {
+  font-size: 1.5rem;
+  font-family: 'Work Sans', sans-serif;
+  color: var(--text-primary);
+}
+
+.sidebar-header button {
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 20px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-header button:hover {
+  background: rgba(186, 107, 255, 0.2);
+  color: white;
+  transform: rotate(90deg);
+}
+
+.resumo-item {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+  border-left: 4px solid var(--primary);
+  transition: all 0.3s ease;
+}
+
+.resumo-item:hover {
+  background: rgba(186, 107, 255, 0.1);
+  transform: translateX(-5px);
+}
+
+.resumo-item strong {
+  color: var(--primary-light);
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.resumo-item p {
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+/* FORMULÁRIO */
+input, textarea {
+  width: 100%;
+  margin-top: 15px;
+  padding: 15px 18px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 2px solid transparent;
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-family: 'Quicksand', sans-serif;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: rgba(186, 107, 255, 0.1);
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* BOTÃO FINALIZAR */
+.finalizar {
+  width: 100%;
+  padding: 18px;
+  border-radius: 50px;
+  border: none;
+  background: var(--gradient);
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 25px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.finalizar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.finalizar:hover {
+  transform: scale(1.02);
+  box-shadow: 0 5px 20px rgba(186, 107, 255, 0.4);
+}
+
+.finalizar:hover::before {
+  left: 100%;
+}
+
+/* SCROLLBAR PERSONALIZADA */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+  header {
+    height: 70px;
+    padding: 0 20px;
+  }
+  
+  .logo {
+    font-size: 1.2rem;
+  }
+  
+  .container {
+    margin-top: 90px;
+    padding: 0 15px;
+  }
+  
+  .configurador {
+    padding: 25px;
+  }
+  
+  .opcao {
+    min-width: 100%;
+    flex: 1 1 100%;
+  }
+  
+  .sidebar {
+    width: 100%;
+    right: -100%;
+  }
+  
+  .preview-container {
+    min-height: 300px;
+    padding: 20px;
+  }
+}
+
+/* UTILITÁRIOS */
+.text-gradient {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.divider {
+  height: 2px;
+  background: var(--gradient);
+  opacity: 0.3;
+  margin: 30px 0;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    TATTOO STUDIO
+    <span>ORÇAMENTO INTERATIVO</span>
+  </div>
+  <div class="cart-icon" onclick="abrirResumo()">
+    🖤
+    <div class="cart-count" id="cart-count">0</div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="configurador">
+    
+    <!-- LOCAL -->
+    <div class="pergunta ativa" id="pergunta-local">
+      <div class="pergunta-titulo">📍 LOCAL DA TATTOO</div>
+      <div class="opcoes">
+        <div class="opcao" onclick="selecionarOpcao('local', 'braco', event)"><span>💪</span> Braço</div>
+        <div class="opcao" onclick="selecionarOpcao('local', 'perna', event)"><span>🦵</span> Perna</div>
+        <div class="opcao" onclick="selecionarOpcao('local', 'costas', event)"><span>🔙</span> Costas</div>
+        <div class="opcao" onclick="selecionarOpcao('local', 'peito', event)"><span>👤</span> Peito</div>
+      </div>
+    </div>
+
+    <!-- TAMANHO -->
+    <div class="pergunta" id="pergunta-tamanho">
+      <div class="pergunta-titulo">📏 TAMANHO</div>
+      <div class="opcoes">
+        <div class="opcao" onclick="selecionarOpcao('tamanho', 'ate5cm', event)"><span>🪶</span> Até 5cm</div>
+        <div class="opcao" onclick="selecionarOpcao('tamanho', 'ate10cm', event)"><span>✒️</span> Até 10cm</div>
+        <div class="opcao" onclick="selecionarOpcao('tamanho', 'mais15cm', event)"><span>🖌️</span> Mais de 15cm</div>
+      </div>
+
+      <!-- ÁREA DO VISUALIZADOR -->
+      <div class="preview-container">
+        <p id="txt-placeholder" class="placeholder-img">Visualização da tattoo</p>
+        <img id="imagem-preview" src="" alt="Preview da Tattoo">
+      </div>
+    </div>
+
+    <!-- ESTILO -->
+    <div class="pergunta" id="pergunta-cor">
+      <div class="pergunta-titulo">🎨 ESTILO</div>
+      <div class="opcoes">
+        <div class="opcao" onclick="selecionarOpcao('cor', 'preto', event)"><span>⚫</span> Preto e Cinza</div>
+        <div class="opcao" onclick="selecionarOpcao('cor', 'colorida', event)"><span>🌈</span> Colorida</div>
+      </div>
+    </div>
+
+    <!-- TIPO -->
+    <div class="pergunta" id="pergunta-cobertura">
+      <div class="pergunta-titulo">🔄 TIPO DE TRABALHO</div>
+      <div class="opcoes">
+        <div class="opcao" onclick="selecionarOpcao('cobertura', 'nao', event)"><span>✨</span> Tatuagem Nova</div>
+        <div class="opcao" onclick="selecionarOpcao('cobertura', 'sim', event)"><span>🎭</span> Cobertura (Cover-up)</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="overlay" id="overlay" onclick="fecharResumo()"></div>
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h3>📋 RESUMO</h3>
+    <button onclick="fecharResumo()" aria-label="Fechar">✕</button>
+  </div>
+  
+  <div id="resumo-tattoo"></div>
+  
+  <input type="text" id="nome" placeholder="Seu nome completo *" autocomplete="off">
+  <input type="text" id="instagram" placeholder="@instagram (opcional)" autocomplete="off">
+  <textarea id="descricao" placeholder="Descreva sua ideia, referências ou observações..."></textarea>
+  
+  <button class="finalizar" onclick="enviar()">
+    📱 SOLICITAR ORÇAMENTO
+  </button>
+</div>
+
+<script>
+// Configuração do WhatsApp (substitua pelo número da empresa)
+const WHATSAPP_NUMBER = "5524992346329";
+
+// Estado das escolhas
+const escolhas = {
+  local: null,
+  tamanho: null,
+  cor: null,
+  cobertura: null
+};
+
+// Mapa de exibição
+const displayMap = {
+  local: {
+    braco: { emoji: "💪", texto: "Braço" },
+    perna: { emoji: "🦵", texto: "Perna" },
+    costas: { emoji: "🔙", texto: "Costas" },
+    peito: { emoji: "👤", texto: "Peito" }
+  },
+  tamanho: {
+    ate5cm: { emoji: "🪶", texto: "Até 5cm" },
+    ate10cm: { emoji: "✒️", texto: "Até 10cm" },
+    mais15cm: { emoji: "🖌️", texto: "Mais de 15cm" }
+  },
+  cor: {
+    preto: { emoji: "⚫", texto: "Preto e Cinza" },
+    colorida: { emoji: "🌈", texto: "Colorida" }
+  },
+  cobertura: {
+    nao: { emoji: "✨", texto: "Tatuagem Nova" },
+    sim: { emoji: "🎭", texto: "Cobertura" }
+  }
+};
+
+// LINKS DAS IMAGENS (substitua pelos seus links)
+const imageLinks = {
+  // Braço
+  "braco-ate5cm": "https://ghostxxan.github.io/imagesZap/img/tattoo/braco5cm.png",
+  "braco-ate10cm": "https://ghostxxan.github.io/imagesZap/img/tattoo/braco10cm.png",
+  "braco-mais15cm": "https://ghostxxan.github.io/imagesZap/img/tattoo/braco15cm.png",
+  
+  // Perna
+  "perna-ate5cm": "https://ghostxxan.github.io/imagesZap/img/tattoo/perna5cm.png",
+  "perna-ate10cm": "https://ghostxxan.github.io/imagesZap/img/tattoo/perna10cm.png",
+  "perna-mais15cm": "https://ghostxxan.github.io/imagesZap/img/tattoo/perna15cm.png",
+  
+  // Costas
+  "costas-ate5cm": "https://ghostxxan.github.io/imagesZap/img/tattoo/costa5cm.png",
+  "costas-ate10cm": "https://ghostxxan.github.io/imagesZap/img/tattoo/costa10cm.png",
+  "costas-mais15cm": "https://ghostxxan.github.io/imagesZap/img/tattoo/costa15com.png",
+  
+  // Peito
+  "peito-ate5cm": "https://ghostxxan.github.io/imagesZap/img/tattoo/peito5cm.png",
+  "peito-ate10cm": "https://ghostxxan.github.io/imagesZap/img/tattoo/peito10cm.png",
+  "peito-mais15cm": "https://ghostxxan.github.io/imagesZap/img/tattoo/peito15cm.png"
+};
+
+// Função principal para selecionar opções
+function selecionarOpcao(categoria, valor, event) {
+  // Remove seleção anterior
+  document.querySelectorAll(`#pergunta-${categoria} .opcao`).forEach(opt => {
+    opt.classList.remove('selecionada');
+  });
+  
+  // Adiciona seleção na opção clicada
+  event.currentTarget.classList.add('selecionada');
+  
+  // Salva a escolha
+  escolhas[categoria] = valor;
+  
+  // Atualiza visualizador de imagem se for local ou tamanho
+  if (categoria === 'local' || categoria === 'tamanho') {
+    atualizarImagemTattoo();
+  }
+  
+  // Avança para próxima pergunta
+  avancarPergunta(categoria);
+  
+  // Atualiza contador
+  atualizarProgresso();
+}
+
+// Atualizar imagem de preview com LINKS
+function atualizarImagemTattoo() {
+  const imgElement = document.getElementById('imagem-preview');
+  const placeholder = document.getElementById('txt-placeholder');
+
+  if (escolhas.local && escolhas.tamanho) {
+    // Cria a chave combinando local e tamanho
+    const chave = `${escolhas.local}-${escolhas.tamanho}`;
+    
+    // Pega o link da imagem do dicionário
+    imgElement.src = imageLinks[chave] || '';
+    
+    if (imageLinks[chave]) {
+      imgElement.style.display = 'block';
+      placeholder.style.display = 'none';
+    } else {
+      imgElement.style.display = 'none';
+      placeholder.style.display = 'flex';
+      placeholder.innerHTML = '🖼️ Link da imagem não configurado';
+    }
+
+    // Se a imagem não carregar, mostra placeholder
+    imgElement.onerror = function() {
+      this.style.display = 'none';
+      placeholder.style.display = 'flex';
+      placeholder.innerHTML = '🖼️ Imagem não disponível';
+    };
+  }
+}
+
+// Avançar para próxima pergunta
+function avancarPergunta(categoriaAtual) {
+  const ordem = ['local', 'tamanho', 'cor', 'cobertura'];
+  const indexAtual = ordem.indexOf(categoriaAtual);
+  
+  if (indexAtual < ordem.length - 1) {
+    const proximaPergunta = document.getElementById(`pergunta-${ordem[indexAtual + 1]}`);
+    if (proximaPergunta) {
+      proximaPergunta.classList.add('ativa');
+      
+      // Scroll suave até a pergunta
+      setTimeout(() => {
+        proximaPergunta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
+    }
+  }
+}
+
+// Atualizar contador de progresso
+function atualizarProgresso() {
+  const totalSelecionado = Object.values(escolhas).filter(v => v !== null).length;
+  document.getElementById('cart-count').innerText = totalSelecionado;
+}
+
+// Abrir sidebar com resumo
+function abrirResumo() {
+  const resumoDiv = document.getElementById('resumo-tattoo');
+  resumoDiv.innerHTML = '';
+  
+  let temEscolha = false;
+  
+  for (let [categoria, valor] of Object.entries(escolhas)) {
+    if (valor) {
+      temEscolha = true;
+      const display = displayMap[categoria]?.[valor];
+      if (display) {
+        const categoriaDisplay = {
+          local: 'Local',
+          tamanho: 'Tamanho',
+          cor: 'Estilo',
+          cobertura: 'Tipo'
+        };
+        
+        resumoDiv.innerHTML += `
+          <div class="resumo-item">
+            <strong>${categoriaDisplay[categoria]}</strong>
+            <p>${display.emoji} ${display.texto}</p>
+          </div>
+        `;
+      }
+    }
+  }
+  
+  if (!temEscolha) {
+    resumoDiv.innerHTML = '<div class="resumo-item" style="text-align: center;">Nenhuma opção selecionada</div>';
+  }
+  
+  document.getElementById('sidebar').classList.add('active');
+  document.getElementById('overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+// Fechar sidebar
+function fecharResumo() {
+  document.getElementById('sidebar').classList.remove('active');
+  document.getElementById('overlay').classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+
+// Fechar com tecla ESC
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    fecharResumo();
+  }
+});
+
+// Enviar para WhatsApp
+function enviar() {
+  const nome = document.getElementById('nome').value.trim();
+  const instagram = document.getElementById('instagram').value.trim();
+  const descricao = document.getElementById('descricao').value.trim();
+
+  // Validações
+  if (!nome) {
+    alert('Por favor, informe seu nome!');
+    return;
+  }
+
+  if (Object.values(escolhas).filter(v => v !== null).length < 4) {
+    alert('Complete todas as etapas do formulário!');
+    return;
+  }
+
+  // Montar mensagem
+  let mensagem = `🎨 *NOVO ORÇAMENTO - TATTOO STUDIO*\n\n`;
+  mensagem += `👤 *Cliente:* ${nome}\n`;
+  
+  if (instagram) {
+    mensagem += `📷 *Instagram:* @${instagram}\n`;
+  }
+  
+  mensagem += `\n━━━━━━━━━━━━━━━━━━\n`;
+  mensagem += `*DETALHES DA TATTOO:*\n\n`;
+  
+  for (let [categoria, valor] of Object.entries(escolhas)) {
+    if (valor) {
+      const display = displayMap[categoria]?.[valor];
+      if (display) {
+        const categoriaDisplay = {
+          local: '📍 Local',
+          tamanho: '📏 Tamanho',
+          cor: '🎨 Estilo',
+          cobertura: '🔄 Tipo'
+        };
+        mensagem += `${categoriaDisplay[categoria]}: ${display.emoji} ${display.texto}\n`;
+      }
+    }
+  }
+  
+  if (descricao) {
+    mensagem += `\n━━━━━━━━━━━━━━━━━━\n`;
+    mensagem += `*OBSERVAÇÕES:*\n${descricao}\n`;
+  }
+  
+  mensagem += `\n━━━━━━━━━━━━━━━━━━\n`;
+  mensagem += `✨ *Aguardando retorno do estúdio*`;
+
+  // Abrir WhatsApp
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagem)}`, '_blank');
+  
+  // Feedback
+  alert('✅ Solicitação enviada! Em breve entraremos em contato.');
+  
+  // Opcional: fechar sidebar após envio
+  fecharResumo();
+}
+
+// Inicializar
+document.getElementById('pergunta-local').classList.add('ativa');
+</script>
+
+</body>
+</html>

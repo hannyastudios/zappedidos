@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZapPedidos • Cardápio Digital</title>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #ff6b6b;
+  --primary-light: #ff8e8e;
+  --secondary: #4ecdc4;
+  --accent: #ffe66d;
+  --bg-dark: #1a1b2f;
+  --bg-card: #252642;
+  --bg-sidebar: #2c2d4a;
+  --text-primary: #f7f7ff;
+  --text-secondary: #b8b8d4;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.4);
+  --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Quicksand', sans-serif;
+}
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: rgba(26, 27, 47, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  z-index: 1000;
+  box-shadow: var(--shadow);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+  font-family: 'Work Sans', sans-serif;
+}
+
+.cart-icon {
+  cursor: pointer;
+  position: relative;
+  font-size: 24px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.cart-icon:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var(--primary);
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 20px;
+  min-width: 22px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(255, 107, 107, 0.5);
+}
+
+
+.hero {
+  margin-top: 80px;
+  height: 400px;
+  background: linear-gradient(135deg, rgba(26, 27, 47, 0.9), rgba(37, 38, 66, 0.8)), url("https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 800px;
+  padding: 0 20px;
+  animation: fadeInUp 1s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero h1 {
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  font-family: 'Work Sans', sans-serif;
+  background: linear-gradient(135deg, #fff, var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 30px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.card {
+  background: var(--bg-card);
+  border-radius: 24px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(78, 205, 196, 0.3);
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover img {
+  transform: scale(1.02);
+}
+
+.card h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.card span {
+  color: var(--secondary);
+  font-weight: 700;
+  font-size: 1.4rem;
+  display: block;
+  margin: 12px 0;
+  font-family: 'Work Sans', sans-serif;
+}
+
+button {
+  background: var(--gradient);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 50px;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: 'Quicksand', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(78, 205, 196, 0.4);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 1100;
+}
+
+.overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+
+.sidebar {
+  position: fixed;
+  right: -400px;
+  top: 0;
+  width: 380px;
+  height: 100%;
+  background: var(--bg-sidebar);
+  padding: 30px;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  z-index: 1200;
+  box-shadow: var(--shadow);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar.active {
+  right: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: 'Work Sans', sans-serif;
+}
+
+.sidebar-header button {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.sidebar-header button:hover {
+  background: rgba(255, 107, 107, 0.3);
+  transform: rotate(90deg);
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(-5px);
+}
+
+.item strong {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.controls button {
+  padding: 6px 12px;
+  font-size: 16px;
+  font-weight: 700;
+  min-width: 35px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.controls button:hover {
+  background: var(--gradient);
+  transform: scale(1.1);
+}
+
+.controls span {
+  font-weight: 600;
+  min-width: 25px;
+  text-align: center;
+}
+
+.total {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+  font-weight: 700;
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  color: var(--secondary);
+  font-family: 'Work Sans', sans-serif;
+}
+
+input {
+  width: 100%;
+  margin-top: 15px;
+  padding: 15px 18px;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-family: 'Quicksand', sans-serif;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--secondary);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.finalizar {
+  margin-top: 25px;
+  width: 100%;
+  padding: 16px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, var(--primary), #ff8e8e);
+}
+
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.card {
+  animation: slideIn 0.5s ease backwards;
+}
+
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+.card:nth-child(6) { animation-delay: 0.6s; }
+
+
+@media (max-width: 768px) {
+  header {
+    padding: 0 20px;
+    height: 70px;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+  }
+  
+  .hero {
+    height: 300px;
+    margin-top: 70px;
+  }
+  
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+  
+  .hero p {
+    font-size: 1rem;
+  }
+  
+  .container {
+    padding: 40px 20px;
+  }
+  
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .sidebar {
+    width: 100%;
+    right: -100%;
+    padding: 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🍔 ZapPedidos</div>
+  <div class="cart-icon" onclick="abrirCarrinho()">
+    🛒
+    <div class="cart-count" id="cart-count">0</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Seu Cardápio Virtual</h1>
+    <p>Escolha seu pedido com carinho 💛 e finalize no WhatsApp</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="grid" id="produtos"></div>
+</div>
+
+<div class="overlay" id="overlay" onclick="fecharCarrinho()"></div>
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h2>🛍️ Seu Pedido</h2>
+    <button onclick="fecharCarrinho()" aria-label="Fechar carrinho">✕</button>
+  </div>
+
+  <div id="itens"></div>
+  <div class="total" id="total">Total: R$ 0,00</div>
+
+  <input type="text" id="nome" placeholder="Seu nome completo" autocomplete="off">
+  <input type="text" id="endereco" placeholder="Endereço para entrega" autocomplete="off">
+
+  <button class="finalizar" onclick="enviar()">
+    📱 Finalizar no WhatsApp
+  </button>
+</div>
+
+<script>
+const MEU_WHATSAPP = "5524992346329"; //
+
+const PRODUTOS = [
+  { id: 1, nome: "🍔 Burger Especial", preco: 32.90, img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300" },
+  { id: 2, nome: "🍟 Batata Cheddar", preco: 22.90, img: "https://images.unsplash.com/photo-1576107232684-1279f390859f?w=300" },
+  { id: 3, nome: "🥤 Milkshake Ovomaltine", preco: 18.90, img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=300" },
+  { id: 4, nome: "🌯 Wrap Fit", preco: 28.90, img: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=300" },
+  { id: 5, nome: "🥗 Salada Caesar", preco: 25.90, img: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=300" },
+  { id: 6, nome: "🍕 Pizza Individual", preco: 35.90, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300" }
+];
+
+let carrinho = {};
+
+function render() {
+  document.getElementById("produtos").innerHTML = PRODUTOS.map(p => `
+    <div class="card">
+      <img src="${p.img}" alt="${p.nome}" loading="lazy">
+      <h3>${p.nome}</h3>
+      <span>R$ ${p.preco.toFixed(2)}</span>
+      <button onclick="add(${p.id})">Adicionar ao pedido</button>
+    </div>
+  `).join("");
+}
+
+function add(id) {
+  if (!carrinho[id]) {
+    carrinho[id] = { ...PRODUTOS.find(p => p.id === id), qtd: 0 };
+  }
+  carrinho[id].qtd++;
+  atualizar();
+  animarBotao(id);
+}
+
+function remove(id) {
+  if (carrinho[id]) {
+    carrinho[id].qtd--;
+    if (carrinho[id].qtd <= 0) {
+      delete carrinho[id];
+    }
+  }
+  atualizar();
+}
+
+function animarBotao(id) {
+  const botoes = document.querySelectorAll('.card button');
+  botoes[id - 1].style.transform = 'scale(0.95)';
+  setTimeout(() => {
+    botoes[id - 1].style.transform = 'scale(1)';
+  }, 200);
+}
+
+function atualizar() {
+  let total = 0;
+  let qtdTotal = 0;
+  let html = "";
+
+  Object.values(carrinho).forEach(item => {
+    total += item.preco * item.qtd;
+    qtdTotal += item.qtd;
+
+    html += `
+      <div class="item">
+        <div>
+          <strong>${item.nome}</strong>
+          <div class="controls">
+            <button onclick="remove(${item.id})" aria-label="Remover um">−</button>
+            <span>${item.qtd}</span>
+            <button onclick="add(${item.id})" aria-label="Adicionar mais">+</button>
+          </div>
+        </div>
+        <span>R$ ${(item.preco * item.qtd).toFixed(2)}</span>
+      </div>
+    `;
+  });
+
+  if (qtdTotal === 0) {
+    html = '<p style="text-align: center; opacity: 0.7; padding: 30px;">Seu carrinho está vazio 🛒</p>';
+  }
+
+  document.getElementById("itens").innerHTML = html;
+  document.getElementById("total").innerHTML = `Total: <span>R$ ${total.toFixed(2)}</span>`;
+  document.getElementById("cart-count").innerText = qtdTotal;
+}
+
+function abrirCarrinho() {
+  document.getElementById("sidebar").classList.add("active");
+  document.getElementById("overlay").classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function fecharCarrinho() {
+  document.getElementById("sidebar").classList.remove("active");
+  document.getElementById("overlay").classList.remove("active");
+  document.body.style.overflow = "auto";
+}
+
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") {
+    fecharCarrinho();
+  }
+});
+
+function enviar() {
+  const nome = document.getElementById("nome").value.trim();
+  const endereco = document.getElementById("endereco").value.trim();
+
+  if (!nome || !endereco || Object.keys(carrinho).length === 0) {
+    alert("Por favor, preencha seu nome, endereço e adicione itens ao carrinho! 💛");
+    return;
+  }
+
+  let total = 0;
+  let texto = `🧾 *NOVO PEDIDO - ZapPedidos*\n\n`;
+  texto += `👤 *Cliente:* ${nome}\n`;
+  texto += `📍 *Endereço:* ${endereco}\n`;
+  texto += `━━━━━━━━━━━━━━━━━━\n\n`;
+  texto += `*ITENS DO PEDIDO:*\n`;
+
+  Object.values(carrinho).forEach(item => {
+    texto += `• ${item.qtd}x ${item.nome} - R$ ${(item.preco * item.qtd).toFixed(2)}\n`;
+    total += item.preco * item.qtd;
+  });
+
+  texto += `\n━━━━━━━━━━━━━━━━━━\n`;
+  texto += `💰 *TOTAL: R$ ${total.toFixed(2)}*\n`;
+  texto += `━━━━━━━━━━━━━━━━━━\n\n`;
+  texto += `⏱️ *Tempo estimado:* 45-60 min\n`;
+  texto += `💳 *Forma de pagamento:* Informar no momento da entrega\n\n`;
+  texto += `✨ *Obrigado pela preferência!*`;
+
+  window.open(`https://wa.me/${MEU_WHATSAPP}?text=${encodeURIComponent(texto)}`, '_blank');
+  
+
+  alert("✅ Pedido enviado para o WhatsApp!");
+  
+
+}
+
+
+render();
+</script>
+
+</body>
+</html>
