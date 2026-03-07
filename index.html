@@ -818,9 +818,9 @@ function enviar() {
     pix: { emoji: "📱", texto: "PIX" }
   };
 
-  let texto = `🧾 *NOVO PEDIDO - ZapPedidos*\n\n`;
-  texto += `👤 *Cliente:* ${nome}\n`;
-  texto += `📍 *Endereço:* ${endereco}\n`;
+  let texto = ` *NOVO PEDIDO - ZapPedidos*\n\n`;
+  texto += ` *Cliente:* ${nome}\n`;
+  texto += ` *Endereço:* ${endereco}\n`;
   texto += `━━━━━━━━━━━━━━━━━━\n\n`;
   texto += `*ITENS DO PEDIDO:*\n`;
 
@@ -830,22 +830,22 @@ function enviar() {
   });
 
   texto += `\n━━━━━━━━━━━━━━━━━━\n`;
-  texto += `💰 *TOTAL: R$ ${total.toFixed(2)}*\n`;
-  texto += `💳 *Pagamento:* ${pagamentoInfo[pagamentoSelecionado].emoji} ${pagamentoInfo[pagamentoSelecionado].texto}\n`;
+  texto += ` *TOTAL: R$ ${total.toFixed(2)}*\n`;
+  texto += ` *Pagamento:* ${pagamentoInfo[pagamentoSelecionado].emoji} ${pagamentoInfo[pagamentoSelecionado].texto}\n`;
   
 
   if (pagamentoSelecionado === 'dinheiro' && troco) {
-    texto += `💵 *Troco para:* R$ ${troco}\n`;
+    texto += ` *Troco para:* R$ ${troco}\n`;
   }
   
   texto += `━━━━━━━━━━━━━━━━━━\n\n`;
-  texto += `⏱️ *Tempo estimado:* 45-60 min\n`;
+  texto += ` *Tempo estimado:* 45-60 min\n`;
   
   if (pagamentoSelecionado === 'pix') {
-    texto += `🔑 *Chave PIX:* Enviaremos no chat\n`;
+    texto += ` *Chave PIX:* Enviaremos no chat\n`;
   }
   
-  texto += `\n✨ *Obrigado pela preferência!*`;
+  texto += `\n *Obrigado pela preferência!*`;
 
   window.open(`https://wa.me/${MEU_WHATSAPP}?text=${encodeURIComponent(texto)}`, '_blank');
   
@@ -860,4 +860,5 @@ render();
 </script>
 
 </body>
+
 </html>
