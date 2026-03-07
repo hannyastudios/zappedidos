@@ -813,9 +813,9 @@ function enviar() {
   let total = 0;
   
   const pagamentoInfo = {
-    dinheiro: { emoji: "", texto: "Dinheiro" },
-    cartao: { emoji: "", texto: "Cartão (Crédito/Débito)" },
-    pix: { emoji: "", texto: "PIX" }
+    dinheiro: { texto: "Dinheiro" },
+    cartao: { texto: "Cartão (Crédito/Débito)" },
+    pix: { texto: "PIX" }
   };
 
   let texto = ` *NOVO PEDIDO - ZapPedidos*\n\n`;
@@ -831,7 +831,7 @@ function enviar() {
 
   texto += `\n━━━━━━━━━━━━━━━━━━\n`;
   texto += ` *TOTAL: R$ ${total.toFixed(2)}*\n`;
-  texto += ` *Pagamento:* ${pagamentoInfo[pagamentoSelecionado].emoji} ${pagamentoInfo[pagamentoSelecionado].texto}\n`;
+  texto += ` *Pagamento:* ${pagamentoInfo[pagamentoSelecionado].texto}\n`;
   
 
   if (pagamentoSelecionado === 'dinheiro' && troco) {
@@ -862,4 +862,5 @@ render();
 </body>
 
 </html>
+
 
