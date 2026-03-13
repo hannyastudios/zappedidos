@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ZapPedidos • Cardápio Digital</title>
 
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -24,6 +23,8 @@
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.4);
   --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+  --success: #4caf50;
+  --warning: #ff9800;
 }
 
 * {
@@ -102,7 +103,6 @@ header {
   text-align: center;
   box-shadow: 0 2px 10px rgba(255, 107, 107, 0.5);
 }
-
 
 .hero {
   margin-top: 80px;
@@ -232,7 +232,6 @@ button:active {
   transform: scale(0.95);
 }
 
-
 .overlay {
   position: fixed;
   inset: 0;
@@ -249,7 +248,6 @@ button:active {
   opacity: 1;
   pointer-events: all;
 }
-
 
 .sidebar {
   position: fixed;
@@ -366,6 +364,125 @@ button:active {
   font-family: 'Work Sans', sans-serif;
 }
 
+.pagamento-section {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.pagamento-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pagamento-opcoes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pagamento-option {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid transparent;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pagamento-option:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(5px);
+}
+
+.pagamento-option.selected {
+  border-color: var(--secondary);
+  background: rgba(78, 205, 196, 0.1);
+  box-shadow: 0 0 20px rgba(78, 205, 196, 0.2);
+}
+
+.pagamento-option input[type="radio"] {
+  display: none;
+}
+
+.pagamento-icon {
+  font-size: 24px;
+  margin-right: 15px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.pagamento-info {
+  flex: 1;
+}
+
+.pagamento-info strong {
+  display: block;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.pagamento-info small {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+.pagamento-check {
+  color: var(--secondary);
+  font-size: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pagamento-option.selected .pagamento-check {
+  opacity: 1;
+}
+
+
+.troco-container {
+  margin-top: 15px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  border-left: 4px solid var(--warning);
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.troco-container label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.troco-container input {
+  margin-top: 0;
+}
+
 input {
   width: 100%;
   margin-top: 15px;
@@ -400,7 +517,6 @@ input::placeholder {
   letter-spacing: 1px;
   background: linear-gradient(135deg, var(--primary), #ff8e8e);
 }
-
 
 ::-webkit-scrollbar {
   width: 8px;
@@ -442,7 +558,6 @@ input::placeholder {
 .card:nth-child(5) { animation-delay: 0.5s; }
 .card:nth-child(6) { animation-delay: 0.6s; }
 
-
 @media (max-width: 768px) {
   header {
     padding: 0 20px;
@@ -483,7 +598,6 @@ input::placeholder {
 }
 </style>
 </head>
-
 <body>
 
 <header>
@@ -496,8 +610,8 @@ input::placeholder {
 
 <section class="hero">
   <div class="hero-content">
-    <h1>Seu Cardápio Virtual</h1>
-    <p>Escolha seu pedido com carinho 💛 e finalize no WhatsApp</p>
+    <h1>Cardápio e Pedidos Automáticos</h1>
+    <p>O seu negócio pode ser Profissional!</p>
   </div>
 </section>
 
@@ -519,24 +633,63 @@ input::placeholder {
   <input type="text" id="nome" placeholder="Seu nome completo" autocomplete="off">
   <input type="text" id="endereco" placeholder="Endereço para entrega" autocomplete="off">
 
+  <div class="pagamento-section">
+    <h3>💳 Forma de Pagamento</h3>
+    <div class="pagamento-opcoes">
+      <label class="pagamento-option" id="option-dinheiro" onclick="selecionarPagamento('dinheiro')">
+        <input type="radio" name="pagamento" value="dinheiro" id="pag-dinheiro">
+        <span class="pagamento-icon">💵</span>
+        <div class="pagamento-info">
+          <strong>Dinheiro</strong>
+          <small>Pagamento na entrega</small>
+        </div>
+        <span class="pagamento-check" id="check-dinheiro">✓</span>
+      </label>
+      <label class="pagamento-option" id="option-cartao" onclick="selecionarPagamento('cartao')">
+        <input type="radio" name="pagamento" value="cartao" id="pag-cartao">
+        <span class="pagamento-icon">💳</span>
+        <div class="pagamento-info">
+          <strong>Cartão</strong>
+          <small>Crédito ou débito</small>
+        </div>
+        <span class="pagamento-check" id="check-cartao">✓</span>
+      </label>
+      <label class="pagamento-option" id="option-pix" onclick="selecionarPagamento('pix')">
+        <input type="radio" name="pagamento" value="pix" id="pag-pix">
+        <span class="pagamento-icon">📱</span>
+        <div class="pagamento-info">
+          <strong>PIX</strong>
+          <small>Chave será enviada no WhatsApp</small>
+        </div>
+        <span class="pagamento-check" id="check-pix">✓</span>
+      </label>
+    </div>
+
+    <div id="troco-container" class="troco-container" style="display: none;">
+      <label>💰 Precisa de troco para quanto?</label>
+      <input type="text" id="troco" placeholder="Ex: R$ 100,00" autocomplete="off">
+    </div>
+  </div>
+
   <button class="finalizar" onclick="enviar()">
     📱 Finalizar no WhatsApp
   </button>
 </div>
 
 <script>
-const MEU_WHATSAPP = "5524992346329"; //
+const MEU_WHATSAPP = "5524992346329"; 
 
 const PRODUTOS = [
-  { id: 1, nome: "🍔 Burger Especial", preco: 32.90, img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300" },
-  { id: 2, nome: "🍟 Batata Cheddar", preco: 22.90, img: "https://images.unsplash.com/photo-1576107232684-1279f390859f?w=300" },
-  { id: 3, nome: "🥤 Milkshake Ovomaltine", preco: 18.90, img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=300" },
-  { id: 4, nome: "🌯 Wrap Fit", preco: 28.90, img: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=300" },
-  { id: 5, nome: "🥗 Salada Caesar", preco: 25.90, img: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=300" },
-  { id: 6, nome: "🍕 Pizza Individual", preco: 35.90, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300" }
+  { id: 1, nome: "Hamburguer Especial", preco: 32.90, img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300" },
+  { id: 2, nome: "Batata Cheddar", preco: 22.90, img: "https://images.unsplash.com/photo-1576107232684-1279f390859f?w=300" },
+  { id: 3, nome: "Milkshake Ovomaltine", preco: 18.90, img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=300" },
+  { id: 4, nome: "Wrap Fit", preco: 28.90, img: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=300" },
+  { id: 5, nome: "Salada Caesar", preco: 25.90, img: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=300" },
+  { id: 6, nome: "Pizza Individual", preco: 35.90, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300" }
 ];
 
 let carrinho = {};
+let pagamentoSelecionado = null;
 
 function render() {
   document.getElementById("produtos").innerHTML = PRODUTOS.map(p => `
@@ -609,6 +762,24 @@ function atualizar() {
   document.getElementById("cart-count").innerText = qtdTotal;
 }
 
+function selecionarPagamento(tipo) {
+  pagamentoSelecionado = tipo;
+  
+  document.querySelectorAll('.pagamento-option').forEach(opt => {
+    opt.classList.remove('selected');
+  });
+
+  document.getElementById(`option-${tipo}`).classList.add('selected');
+
+  const trocoContainer = document.getElementById('troco-container');
+  if (tipo === 'dinheiro') {
+    trocoContainer.style.display = 'block';
+  } else {
+    trocoContainer.style.display = 'none';
+    document.getElementById('troco').value = '';
+  }
+}
+
 function abrirCarrinho() {
   document.getElementById("sidebar").classList.add("active");
   document.getElementById("overlay").classList.add("active");
@@ -630,39 +801,60 @@ document.addEventListener("keydown", function(e) {
 function enviar() {
   const nome = document.getElementById("nome").value.trim();
   const endereco = document.getElementById("endereco").value.trim();
+  const troco = document.getElementById("troco").value.trim();
 
   if (!nome || !endereco || Object.keys(carrinho).length === 0) {
-    alert("Por favor, preencha seu nome, endereço e adicione itens ao carrinho! 💛");
+    alert("Por favor, preencha seu nome, endereço e adicione itens ao carrinho!");
+    return;
+  }
+
+  if (!pagamentoSelecionado) {
+    alert("Escolha uma forma de pagamento!");
     return;
   }
 
   let total = 0;
-  let texto = `🧾 *NOVO PEDIDO - ZapPedidos*\n\n`;
-  texto += `👤 *Cliente:* ${nome}\n`;
-  texto += `📍 *Endereço:* ${endereco}\n`;
-  texto += `━━━━━━━━━━━━━━━━━━\n\n`;
-  texto += `*ITENS DO PEDIDO:*\n`;
+  
+  const pagamentoInfo = {
+    dinheiro: { texto: "Dinheiro" },
+    cartao: { texto: "Cartao (Credito/Debito)" },
+    pix: { texto: "PIX" }
+  };
+
+  // Usando apenas caracteres seguros (sem emojis)
+  let texto = "NOVO PEDIDO - ZapPedidos\n\n";
+  texto += "Cliente: " + nome + "\n";
+  texto += "Endereco: " + endereco + "\n";
+  texto += "---------------------------\n\n";
+  texto += "ITENS DO PEDIDO:\n";
 
   Object.values(carrinho).forEach(item => {
-    texto += `• ${item.qtd}x ${item.nome} - R$ ${(item.preco * item.qtd).toFixed(2)}\n`;
+    texto += item.qtd + "x " + item.nome + " - R$ " + (item.preco * item.qtd).toFixed(2) + "\n";
     total += item.preco * item.qtd;
   });
 
-  texto += `\n━━━━━━━━━━━━━━━━━━\n`;
-  texto += `💰 *TOTAL: R$ ${total.toFixed(2)}*\n`;
-  texto += `━━━━━━━━━━━━━━━━━━\n\n`;
-  texto += `⏱️ *Tempo estimado:* 45-60 min\n`;
-  texto += `💳 *Forma de pagamento:* Informar no momento da entrega\n\n`;
-  texto += `✨ *Obrigado pela preferência!*`;
+  texto += "\n---------------------------\n";
+  texto += "TOTAL: R$ " + total.toFixed(2) + "\n";
+  texto += "Pagamento: " + pagamentoInfo[pagamentoSelecionado].texto + "\n";
+  
+  if (pagamentoSelecionado === 'dinheiro' && troco) {
+    texto += "Troco para: R$ " + troco + "\n";
+  }
+  
+  texto += "---------------------------\n\n";
+  texto += "Tempo estimado: 45-60 min\n";
+  
+  if (pagamentoSelecionado === 'pix') {
+    texto += "Chave PIX: Enviaremos no chat\n";
+  }
+  
+  texto += "\nObrigado pela preferencia!";
 
+  // Codificação dupla para garantir compatibilidade
   window.open(`https://wa.me/${MEU_WHATSAPP}?text=${encodeURIComponent(texto)}`, '_blank');
   
-
-  alert("✅ Pedido enviado para o WhatsApp!");
-  
-
+  alert("Pedido enviado para o WhatsApp!");
 }
-
 
 render();
 </script>
