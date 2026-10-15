@@ -255,6 +255,10 @@
 .tela .fileira i{ height: 62px }
 .tela .pilha{ display: grid; gap: 9px }
 
+/* gradezinha de horários da prévia de barbearia */
+.tela .agenda-mini{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px }
+.tela .agenda-mini i{ height: 30px }
+
 /* bonequinho da prévia de tatuagem: retinho, igual ao do sistema.
    Os seletores repetem .tela porque `.tela i` tem especificidade maior
    que uma classe sozinha e vinha achatando tudo em 10px de altura. */
@@ -421,9 +425,11 @@
   border-bottom: var(--borda-fina);
 }
 .grupo-separado{ margin-top: clamp(44px, 5vw, 66px) }
+.plano-servico + .grupo-titulo{ margin-top: clamp(40px, 4.5vw, 60px) }
 
-/* --- plano de tatuagem: oferta + a lista de estilos --- */
-.plano-tattoo{
+/* --- plano de serviço: a oferta de um lado, a lista do que a pessoa faz do outro.
+       Serve para tatuagem e para barbearia --- */
+.plano-servico{
   display: grid;
   grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
   border: var(--borda-fina);
@@ -431,15 +437,15 @@
   overflow: hidden;
   background: var(--breu);
 }
-.tattoo-oferta{
+.servico-oferta{
   padding: clamp(26px, 3vw, 38px) clamp(22px, 2.4vw, 32px);
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-.tattoo-oferta ul{ list-style: none; margin: 0; padding: 0; display: grid; gap: 9px }
-.tattoo-oferta li{ position: relative; padding-left: 25px; color: var(--bruma); font-size: .96rem }
-.tattoo-oferta li::before{
+.servico-oferta ul{ list-style: none; margin: 0; padding: 0; display: grid; gap: 9px }
+.servico-oferta li{ position: relative; padding-left: 25px; color: var(--bruma); font-size: .96rem }
+.servico-oferta li::before{
   content: "";
   position: absolute;
   left: 2px; top: .55em;
@@ -448,9 +454,9 @@
   border-bottom: 1.8px solid var(--ambar);
   transform: rotate(-45deg);
 }
-.tattoo-nota{ color: var(--fumaca); font-size: .9rem; border-top: var(--borda-fina); padding-top: 14px }
+.servico-nota{ color: var(--fumaca); font-size: .9rem; border-top: var(--borda-fina); padding-top: 14px }
 
-.tattoo-escolha{
+.servico-escolha{
   padding: clamp(26px, 3vw, 38px) clamp(22px, 2.4vw, 32px);
   background: var(--noite);
   border-left: var(--borda-fina);
@@ -458,13 +464,13 @@
   flex-direction: column;
   gap: 8px;
 }
-.tattoo-escolha h4{
+.servico-escolha h4{
   font-family: Fraunces, Georgia, serif;
   font-weight: 700;
   font-size: 1.15rem;
   margin: 0;
 }
-.tattoo-dica{ color: var(--fumaca); font-size: .9rem; margin-bottom: 8px }
+.servico-dica{ color: var(--fumaca); font-size: .9rem; margin-bottom: 8px }
 .estilos{ display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 20px }
 .estilo{
   display: inline-flex;
@@ -505,12 +511,12 @@
   transform: rotate(42deg);
 }
 .estilo:has(input:focus-visible){ outline: 2px solid var(--ambar); outline-offset: 3px }
-.tattoo-escolha .btn{ align-self: flex-start; margin-top: auto }
+.servico-escolha .btn{ align-self: flex-start; margin-top: auto }
 
 @media (max-width: 860px){
-  .plano-tattoo{ grid-template-columns: 1fr }
-  .tattoo-escolha{ border-left: 0; border-top: var(--borda-fina) }
-  .tattoo-escolha .btn{ width: 100% }
+  .plano-servico{ grid-template-columns: 1fr }
+  .servico-escolha{ border-left: 0; border-top: var(--borda-fina) }
+  .servico-escolha .btn{ width: 100% }
 }
 
 /* ---------------------------------------------------------------
