@@ -60,39 +60,58 @@
     });
   }
 
-  /* ---- 4. plano de tatuagem: a lista de estilos vai junto na mensagem ---- */
-  var ESTILOS = [
-    "Fineline", "Blackwork", "Old school", "Neo tradicional", "Realismo",
-    "Pontilhismo", "Aquarela", "Tribal", "Geométrico", "Oriental",
-    "Lettering", "Cobertura (cover-up)"
+  /* ---- 4. planos de serviço: o que a pessoa marca vai junto na mensagem ---- */
+  var LISTAS = [
+    {
+      caixa: "estilos",
+      botao: "botao-tattoo",
+      plano: "Tatuagem",
+      rotulo: "Os estilos que eu tatuo",
+      pendente: "Ainda vou te passar os estilos que eu tatuo",
+      itens: ["Fineline", "Blackwork", "Old school", "Neo tradicional", "Realismo",
+              "Pontilhismo", "Aquarela", "Tribal", "Geométrico", "Oriental",
+              "Lettering", "Cobertura (cover-up)"]
+    },
+    {
+      caixa: "servicos-barbearia",
+      botao: "botao-barbearia",
+      plano: "Barbearia",
+      rotulo: "O que a minha barbearia faz",
+      pendente: "Ainda vou te passar o que a minha barbearia faz",
+      itens: ["Corte na máquina", "Tesoura e máquina", "Corte na tesoura", "Barba",
+              "Sobrancelha", "Pezinho", "Hidratação", "Pintura",
+              "Descoloração", "Platinado", "Luzes", "Relaxamento"]
+    }
   ];
 
-  var caixaEstilos = document.getElementById("estilos");
-  var botaoTattoo = document.getElementById("botao-tattoo");
+  LISTAS.forEach(function (lista, n) {
+    var caixa = document.getElementById(lista.caixa);
+    var botao = document.getElementById(lista.botao);
+    if (!caixa || !botao) return;
 
-  if (caixaEstilos && botaoTattoo) {
-    caixaEstilos.innerHTML = ESTILOS.map(function (e, i) {
-      return '<label class="estilo"><input type="checkbox" value="' + e + '" id="estilo-' + i + '">'
-        + '<span class="caixa" aria-hidden="true"></span>' + e + "</label>";
+    caixa.innerHTML = lista.itens.map(function (item, i) {
+      var id = "marca-" + n + "-" + i;
+      return '<label class="estilo"><input type="checkbox" value="' + item + '" id="' + id + '">'
+        + '<span class="caixa" aria-hidden="true"></span>' + item + "</label>";
     }).join("");
 
-    var montarLink = function () {
+    function montarLink() {
       var marcados = Array.prototype.map.call(
-        caixaEstilos.querySelectorAll("input:checked"),
+        caixa.querySelectorAll("input:checked"),
         function (i) { return i.value; }
       );
-      var texto = "Olá! Quero o plano Tatuagem do ZapPedidos.";
+      var texto = "Olá! Quero o plano " + lista.plano + " do ZapPedidos.\n\n";
       texto += marcados.length
-        ? "\n\nOs estilos que eu tatuo: " + marcados.join(", ") + "."
-        : "\n\nAinda vou te passar os estilos que eu tatuo.";
-      botaoTattoo.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(texto);
-    };
+        ? lista.rotulo + ": " + marcados.join(", ") + "."
+        : lista.pendente + ".";
+      botao.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(texto);
+    }
 
-    caixaEstilos.addEventListener("change", montarLink);
-    botaoTattoo.target = "_blank";
-    botaoTattoo.rel = "noopener";
+    caixa.addEventListener("change", montarLink);
+    botao.target = "_blank";
+    botao.rel = "noopener";
     montarLink();
-  }
+  });
 
   var ano = document.getElementById("ano");
   if (ano) ano.textContent = new Date().getFullYear();
