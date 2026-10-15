@@ -1,0 +1,215 @@
+/* ===================================================================
+   ZapPedidos — tema compartilhado (cores, tipografia, botões)
+   Usado pela home e pelas duas demonstrações.
+   Mudar um valor aqui muda o site inteiro.
+   =================================================================== */
+
+:root{
+  /* --- superfícies: petróleo profundo, sempre azul-esverdeado --- */
+  --breu:      #06161E;   /* fundo da página */
+  --noite:     #0B2230;   /* faixa alternada */
+  --mar:       #123243;   /* bloco elevado */
+  --linha:     #1D4356;   /* divisórias e contornos */
+
+  /* --- texto --- */
+  --areia:     #F3EADB;   /* texto principal, branco quente */
+  --bruma:     #93AAB7;   /* texto de apoio */
+  --fumaca:    #6B8695;   /* legendas, estados desligados */
+
+  /* --- ação e apoio --- */
+  --ambar:     #F0A63C;
+  --ambar-cl:  #FFC56B;
+  --ambar-es:  #C47B18;
+  --tijolo:    #C4603F;   /* apoio quente, usar pouco */
+  --zap:       #4BD07E;   /* só para o sinal do WhatsApp */
+
+  --borda-fina: 1px solid var(--linha);
+  --raio-g: 18px;
+  --raio-p: 10px;
+
+  --col: min(1160px, 100% - 48px);
+  --ritmo: clamp(72px, 9vw, 124px);   /* respiro vertical entre blocos */
+}
+
+*,*::before,*::after{ box-sizing: border-box }
+
+html{ scroll-behavior: smooth; -webkit-text-size-adjust: 100% }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto } }
+
+body{
+  margin: 0;
+  background: var(--breu);
+  color: var(--areia);
+  font: 400 17px/1.65 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,h2,h3{
+  font-family: Fraunces, Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  font-variation-settings: "SOFT" 20, "WONK" 1;
+  line-height: 1.08;
+  letter-spacing: -.015em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p{ margin: 0 }
+img, svg{ max-width: 100%; display: block }
+
+a{ color: var(--ambar); text-decoration-thickness: 1px; text-underline-offset: 3px }
+a:hover{ color: var(--ambar-cl) }
+
+:focus-visible{
+  outline: 2px solid var(--ambar);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* números de preço sempre alinhados */
+.num{ font-variant-numeric: tabular-nums }
+
+.col{ width: var(--col); margin-inline: auto }
+
+/* ---------------------------------------------------------------
+   Botões
+   O fundo é pintado só dentro do padding-box: assim nada do âmbar
+   escapa por baixo da borda e aparece nos cantos arredondados.
+   --------------------------------------------------------------- */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 13px 24px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  border-radius: 999px;
+  font: 600 16px/1 Inter, system-ui, sans-serif;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .18s ease, color .18s ease, border-color .18s ease, transform .12s ease;
+}
+.btn:active{ transform: translateY(1px) }
+
+.btn-acao{ background-color: var(--ambar); color: #22160A; border-color: var(--ambar) }
+.btn-acao:hover{ background-color: var(--ambar-cl); color: #22160A; border-color: var(--ambar-cl) }
+
+.btn-linha{ background-color: transparent; color: var(--areia); border-color: var(--linha) }
+.btn-linha:hover{ background-color: var(--mar); color: var(--areia); border-color: var(--bruma) }
+
+.btn-claro{ background-color: #22160A; color: var(--ambar-cl); border-color: #22160A }
+.btn-claro:hover{ background-color: #0d0904; color: var(--ambar-cl) }
+
+.btn svg{ width: 19px; height: 19px; flex: none }
+
+/* ---------------------------------------------------------------
+   Cabeçalho comum
+   --------------------------------------------------------------- */
+.topo{
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: color-mix(in srgb, var(--breu) 88%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: var(--borda-fina);
+}
+.topo-in{
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 66px;
+}
+.marca{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 700;
+  font-size: 21px;
+  letter-spacing: -.02em;
+  color: var(--areia);
+  text-decoration: none;
+  margin-right: auto;
+}
+.marca svg{ width: 26px; height: 26px }
+.topo nav{ display: flex; gap: 22px; align-items: center }
+.topo nav a{
+  color: var(--bruma);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+}
+.topo nav a:hover{ color: var(--areia) }
+@media (max-width: 760px){ .topo nav{ display: none } }
+/* no celular o botão do topo fica só "WhatsApp": "Falar no WhatsApp"
+   quebrava em duas linhas e esticava o cabeçalho */
+@media (max-width: 520px){
+  .topo .btn{ padding: 11px 17px; font-size: 15px }
+  .so-largo{ display: none }
+}
+
+/* link de voltar das demonstrações */
+.voltar{
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--bruma);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 8px 14px 8px 10px;
+  border: var(--borda-fina);
+  border-radius: 999px;
+}
+.voltar:hover{ color: var(--areia); border-color: var(--bruma); background: var(--noite) }
+.voltar svg{ width: 16px; height: 16px }
+
+/* ---------------------------------------------------------------
+   Aviso de demonstração (rodapé fixo das demos)
+   --------------------------------------------------------------- */
+.aviso-demo{
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 300;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  align-items: baseline;
+  justify-content: center;
+  padding: 11px 18px;
+  background: var(--ambar);
+  color: #22160A;
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+}
+.aviso-demo a{ color: #22160A; font-weight: 700 }
+/* a faixa é fixa e fica por cima de tudo; a altura real dela é medida em
+   JS e guardada em --altura-aviso, para nada ficar escondido atrás */
+body.tem-aviso{ padding-bottom: calc(var(--altura-aviso, 72px) + 10px) }
+
+/* ---------------------------------------------------------------
+   Entrada discreta ao rolar — um deslocamento curto, uma vez só.
+   Sem animação para quem pediu menos movimento no sistema.
+   --------------------------------------------------------------- */
+.surge{ opacity: 0; transform: translateY(14px) }
+.surge.visivel{ opacity: 1; transform: none; transition: opacity .5s ease, transform .5s cubic-bezier(.2,.7,.3,1) }
+
+@media (prefers-reduced-motion: reduce){
+  .surge, .surge.visivel{ opacity: 1; transform: none; transition: none }
+  *,*::before,*::after{ animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important }
+}
+
+.so-leitor{
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

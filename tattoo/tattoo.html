@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exemplo de orçamento de tatuagem pelo WhatsApp | ZapPedidos</title>
+<meta name="description" content="Demonstração do ZapPedidos para estúdio de tatuagem: o cliente escolhe o lugar no corpo, arrasta o tamanho, vê a peça no manequim e o resumo chega pronto no WhatsApp.">
+<link rel="canonical" href="https://zappedidos.shop/tattoo/tattoo.html">
+<meta name="robots" content="noindex,follow">
+<meta name="theme-color" content="#06161E">
+
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ZapPedidos">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://zappedidos.shop/tattoo/tattoo.html">
+<meta property="og:title" content="Exemplo de orçamento de tatuagem — ZapPedidos">
+<meta property="og:description" content="Escolha o lugar no corpo, arraste o tamanho e veja o resumo chegar pronto no WhatsApp. É uma demonstração.">
+<meta property="og:image" content="https://zappedidos.shop/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zappedidos.shop/img/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/tema.css">
+<link rel="stylesheet" href="../assets/css/tattoo.css">
+</head>
+<body class="tem-aviso">
+
+<header class="topo">
+  <div class="col topo-in">
+    <a class="voltar" href="../index.html">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Voltar
+    </a>
+    <span class="marca" style="margin-left:auto;margin-right:0">Estúdio Demo</span>
+  </div>
+</header>
+
+<main class="col estudio">
+
+  <!-- ============ manequim ============ -->
+  <section class="palco" aria-label="Prévia da tatuagem no corpo">
+   <div class="palco-visor">
+    <div class="palco-topo">
+      <div class="lado" role="group" aria-label="Lado do corpo">
+        <button type="button" data-lado="frente" aria-pressed="true">Frente</button>
+        <button type="button" data-lado="costas" aria-pressed="false">Costas</button>
+      </div>
+      <span class="medida" id="medida">12 cm</span>
+    </div>
+
+    <svg class="corpo-svg" id="corpo" viewBox="0 0 200 350" role="group"
+         aria-label="Manequim: toque na parte do corpo onde vai a tatuagem">
+      <defs>
+        <!-- desenhos de exemplo, caixa de 100x100 -->
+        <g id="arte-rosa" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="50" cy="37" r="5"/>
+          <path d="M44.5 30.5a9 9 0 1 1 12 10.5"/>
+          <path d="M38 44a16 16 0 1 1 25 10"/>
+          <path d="M32 52a24 24 0 1 0 36-25"/>
+          <path d="M50 61v27"/>
+          <path d="M50 72c-8 .5-14-4-16.5-11.5 9-1 15.5 3.5 16.5 11.5z"/>
+          <path d="M50 81c8 .5 14-4 16.5-11.5-9-1-15.5 3.5-16.5 11.5z"/>
+        </g>
+
+        <g id="arte-caveira" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linejoin="round">
+          <path d="M26 44c0-15 11-27 24-27s24 12 24 27c0 9-4 14-7 17-2 2-3 4-3 7H36c0-3-1-5-3-7-3-3-7-8-7-17z"/>
+          <ellipse cx="39" cy="43" rx="7" ry="8" fill="currentColor" stroke="none"/>
+          <ellipse cx="61" cy="43" rx="7" ry="8" fill="currentColor" stroke="none"/>
+          <path d="M50 52l-4.5 8h9z" fill="currentColor" stroke="none"/>
+          <path d="M38 68v8M46 68v8M54 68v8M62 68v8" stroke-width="3.6" stroke-linecap="round"/>
+          <path d="M34 77h32" stroke-width="3.6" stroke-linecap="round"/>
+        </g>
+
+        <g id="arte-tribal" fill="currentColor">
+          <path d="M50 11c6 15 16 22 30 24-12 5-18 14-20 28-5-13-13-20-26-22 9-7 14-17 16-30z"/>
+          <path d="M24 56c11 2 18 9 21 19-10-2-19-1-27 5 4-8 6-16 6-24z"/>
+          <path d="M76 63c-10 3-16 10-19 19 10-2 18 0 25 6-4-8-6-17-6-25z"/>
+        </g>
+
+        <g id="arte-frase">
+          <text x="50" y="60" text-anchor="middle" font-family="Fraunces, Georgia, serif"
+                font-size="30" font-style="italic" font-weight="600" fill="currentColor">sempre</text>
+        </g>
+
+        <!-- recorte usado para a tatuagem não passar da pele -->
+        <clipPath id="recorte"><rect id="recorte-area" x="0" y="0" width="0" height="0"/></clipPath>
+      </defs>
+
+      <!-- silhueta lisa: nenhuma divisão aparece para quem olha -->
+      <g class="silhueta" aria-hidden="true">
+        <path d="M84,12 H116 V50 H107 V62 H130 V120 H124 V156 H128 V190 H124 V264 H121 V324 H132 V338 H107 V264 H105 V190 H95 V264 H93 V338 H68 V324 H79 V264 H76 V190 H72 V156 H76 V120 H70 V62 H93 V50 H84 Z"/>
+        <path d="M52,66 H68 V198 H70 V220 H50 V198 H52 Z"/>
+        <path d="M148,66 H132 V198 H130 V220 H150 V198 H148 Z"/>
+      </g>
+
+      <!-- área escolhida, por baixo da tinta -->
+      <rect id="destaque" class="destaque" x="0" y="0" width="0" height="0"/>
+
+      <!-- a tatuagem, recortada pela parte do corpo: nunca sai da pele -->
+      <g clip-path="url(#recorte)">
+        <g class="tinta" id="tinta"></g>
+      </g>
+
+      <g id="regioes-frente" class="vista ativa">
+        <rect class="regiao" data-parte="ombro" x="108" y="62" width="22" height="22" aria-hidden="true"></rect>
+        <rect class="regiao" data-parte="braco" x="132" y="66" width="16" height="66" aria-hidden="true"></rect>
+        <rect class="regiao" data-parte="antebraco" x="132" y="132" width="16" height="66" aria-hidden="true"></rect>
+        <rect class="regiao" data-parte="mao" x="130" y="198" width="20" height="22" aria-hidden="true"></rect>
+        <rect class="regiao" data-parte="coxa" x="105" y="190" width="19" height="74" aria-hidden="true"></rect>
+        <rect class="regiao" data-parte="canela" x="107" y="264" width="14" height="60" aria-hidden="true"></rect>
+        <rect class="regiao" data-parte="pe" x="107" y="324" width="25" height="14" aria-hidden="true"></rect>
+        <rect class="regiao" data-parte="cabeca" x="84" y="12" width="32" height="38" tabindex="0" role="button" aria-label="Cabeça"><title>Cabeça</title></rect>
+        <rect class="regiao" data-parte="rosto" x="88" y="20" width="24" height="24" tabindex="0" role="button" aria-label="Rosto"><title>Rosto</title></rect>
+        <rect class="regiao" data-parte="pescoco" x="93" y="50" width="14" height="12" tabindex="0" role="button" aria-label="Pescoço"><title>Pescoço</title></rect>
+        <rect class="regiao" data-parte="ombro" x="70" y="62" width="22" height="22" tabindex="0" role="button" aria-label="Ombro"><title>Ombro</title></rect>
+        <rect class="regiao" data-parte="peito" x="76" y="84" width="48" height="36" tabindex="0" role="button" aria-label="Peito"><title>Peito</title></rect>
+        <rect class="regiao" data-parte="barriga" x="76" y="120" width="48" height="36" tabindex="0" role="button" aria-label="Barriga"><title>Barriga</title></rect>
+        <rect class="regiao" data-parte="braco" x="52" y="66" width="16" height="66" tabindex="0" role="button" aria-label="Braço"><title>Braço</title></rect>
+        <rect class="regiao" data-parte="antebraco" x="52" y="132" width="16" height="66" tabindex="0" role="button" aria-label="Antebraço"><title>Antebraço</title></rect>
+        <rect class="regiao" data-parte="mao" x="50" y="198" width="20" height="22" tabindex="0" role="button" aria-label="Mão"><title>Mão</title></rect>
+        <rect class="regiao" data-parte="coxa" x="76" y="190" width="19" height="74" tabindex="0" role="button" aria-label="Coxa"><title>Coxa</title></rect>
+        <rect class="regiao" data-parte="canela" x="79" y="264" width="14" height="60" tabindex="0" role="button" aria-label="Canela"><title>Canela</title></rect>
+        <rect class="regiao" data-parte="pe" x="68" y="324" width="25" height="14" tabindex="0" role="button" aria-label="Pé"><title>Pé</title></rect>
+      </g>
+
+      <g id="regioes-costas" class="vista">
+        <rect class="regiao" data-parte="ombro" x="70" y="62" width="22" height="22" aria-hidden="true"></rect>
+        <rect class="regiao" data-parte="braco" x="52" y="66" width="16" height="66" aria-hidden="true"></rect>
+        <rect class="regiao" data-parte="antebraco" x="52" y="132" width="16" height="66" aria-hidden="true"></rect>
+        <rect class="regiao" data-parte="mao" x="50" y="198" width="20" height="22" aria-hidden="true"></rect>
+        <rect class="regiao" data-parte="coxa" x="76" y="190" width="19" height="74" aria-hidden="true"></rect>
+        <rect class="regiao" data-parte="panturrilha" x="79" y="264" width="14" height="60" aria-hidden="true"></rect>
+        <rect class="regiao" data-parte="calcanhar" x="68" y="324" width="25" height="14" aria-hidden="true"></rect>
+        <rect class="regiao" data-parte="cabeca" x="84" y="12" width="32" height="38" tabindex="0" role="button" aria-label="Cabeça"><title>Cabeça</title></rect>
+        <rect class="regiao" data-parte="nuca" x="93" y="50" width="14" height="12" tabindex="0" role="button" aria-label="Nuca"><title>Nuca</title></rect>
+        <rect class="regiao" data-parte="ombro" x="108" y="62" width="22" height="22" tabindex="0" role="button" aria-label="Ombro"><title>Ombro</title></rect>
+        <rect class="regiao" data-parte="costas" x="76" y="84" width="48" height="36" tabindex="0" role="button" aria-label="Costas"><title>Costas</title></rect>
+        <rect class="regiao" data-parte="lombar" x="76" y="120" width="48" height="36" tabindex="0" role="button" aria-label="Lombar"><title>Lombar</title></rect>
+        <rect class="regiao" data-parte="bumbum" x="74" y="156" width="52" height="34" tabindex="0" role="button" aria-label="Bumbum"><title>Bumbum</title></rect>
+        <rect class="regiao" data-parte="braco" x="132" y="66" width="16" height="66" tabindex="0" role="button" aria-label="Braço"><title>Braço</title></rect>
+        <rect class="regiao" data-parte="antebraco" x="132" y="132" width="16" height="66" tabindex="0" role="button" aria-label="Antebraço"><title>Antebraço</title></rect>
+        <rect class="regiao" data-parte="mao" x="130" y="198" width="20" height="22" tabindex="0" role="button" aria-label="Mão"><title>Mão</title></rect>
+        <rect class="regiao" data-parte="coxa" x="105" y="190" width="19" height="74" tabindex="0" role="button" aria-label="Posterior da coxa"><title>Posterior da coxa</title></rect>
+        <rect class="regiao" data-parte="panturrilha" x="107" y="264" width="14" height="60" tabindex="0" role="button" aria-label="Panturrilha"><title>Panturrilha</title></rect>
+        <rect class="regiao" data-parte="calcanhar" x="107" y="324" width="25" height="14" tabindex="0" role="button" aria-label="Calcanhar"><title>Calcanhar</title></rect>
+      </g>
+    </svg>
+   </div>
+
+    <p class="frase" id="frase" aria-live="polite"></p>
+    <p class="recado" id="recado" hidden></p>
+  </section>
+
+  <!-- ============ controles ============ -->
+  <form class="controles" id="forma" novalidate>
+
+    <section class="passo" role="group" aria-labelledby="titulo-1">
+      <h2 class="passo-titulo" id="titulo-1">Onde vai a tatuagem</h2>
+      <p class="dica">Toque no manequim ou escolha na lista. Use o botão Frente / Costas para virar.</p>
+      <div class="opcoes" id="lista-partes"></div>
+    </section>
+
+    <section class="passo" role="group" aria-labelledby="titulo-2">
+      <h2 class="passo-titulo" id="titulo-2">Tamanho</h2>
+      <p class="dica">Arraste e veja a peça mudar no corpo. É a maior medida da tatuagem.</p>
+      <div class="regua">
+        <p class="regua-valor"><span class="so-leitor">Tamanho escolhido:</span><output id="saida-tamanho" for="tamanho">12 cm</output></p>
+        <input type="range" id="tamanho" name="tamanho" min="3" max="40" step="1" value="12"
+               aria-label="Tamanho da tatuagem em centímetros">
+        <div class="regua-limites"><span>3 cm</span><span>40 cm</span></div>
+      </div>
+    </section>
+
+    <section class="passo" role="group" aria-labelledby="titulo-3">
+      <h2 class="passo-titulo" id="titulo-3">Desenho de referência</h2>
+      <p class="dica">Só para você enxergar o tamanho no corpo. A arte final é combinada com o tatuador.</p>
+      <div class="opcoes" id="lista-artes"></div>
+    </section>
+
+    <section class="passo" role="group" aria-labelledby="titulo-4">
+      <h2 class="passo-titulo" id="titulo-4">Estilo</h2>
+      <div class="opcoes" id="lista-estilos"></div>
+    </section>
+
+    <section class="passo" role="group" aria-labelledby="titulo-5">
+      <h2 class="passo-titulo" id="titulo-5">Cor</h2>
+      <div class="opcoes" id="lista-cores"></div>
+    </section>
+
+    <section class="passo" role="group" aria-labelledby="titulo-6">
+      <h2 class="passo-titulo" id="titulo-6">Tipo de trabalho</h2>
+      <div class="opcoes" id="lista-tipos"></div>
+    </section>
+
+    <section class="passo" role="group" aria-labelledby="titulo-7">
+      <h2 class="passo-titulo" id="titulo-7">Seus dados</h2>
+      <div class="campo">
+        <label for="nome">Seu nome</label>
+        <input type="text" id="nome" placeholder="Ex.: Marina Alves" autocomplete="name">
+      </div>
+      <div class="campo">
+        <label for="instagram">Instagram (opcional)</label>
+        <input type="text" id="instagram" placeholder="@seuperfil" autocomplete="off">
+      </div>
+      <div class="campo">
+        <label for="ideia">Conta a sua ideia</label>
+        <textarea id="ideia" placeholder="Referências, significado, se já tem desenho pronto..."></textarea>
+      </div>
+
+      <div class="enviar">
+        <button type="submit" class="btn btn-acao">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M3.4 20.6l1.3-4.3A8.3 8.3 0 1 1 8 19.4l-4.6 1.2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+          </svg>
+          Enviar no WhatsApp
+        </button>
+        <p class="erro" id="erro" role="alert"></p>
+      </div>
+    </section>
+  </form>
+</main>
+
+<p class="aviso-demo">
+  Demonstração — o orçamento vai para o WhatsApp do ZapPedidos, não para um estúdio.
+  <a href="../index.html">Quero um assim para o meu negócio</a>
+</p>
+
+<script src="../assets/js/tattoo.js"></script>
+</body>
+</html>

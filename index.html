@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de pedidos direto no WhatsApp | ZapPedidos</title>
+<meta name="description" content="O ZapPedidos é um sistema de pedidos que funciona direto no WhatsApp. Seu cliente escolhe numa página sua, pelo celular, e a mensagem chega pronta. Serve para quem vende produto e para quem vende trabalho. A partir de R$ 39,90.">
+<link rel="canonical" href="https://zappedidos.shop/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#06161E">
+
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ZapPedidos">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://zappedidos.shop/">
+<meta property="og:title" content="Sistema de pedidos direto no WhatsApp">
+<meta property="og:description" content="Seu cliente escolhe numa página sua e o pedido chega escrito no seu WhatsApp. Para quem vende produto e para quem vende trabalho. Sem aplicativo e sem comissão por venda.">
+<meta property="og:image" content="https://zappedidos.shop/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ZapPedidos — o pedido chega escrito no WhatsApp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sistema de pedidos direto no WhatsApp">
+<meta name="twitter:description" content="Seu cliente escolhe numa página sua e o pedido chega escrito no seu WhatsApp.">
+<meta name="twitter:image" content="https://zappedidos.shop/img/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tema.css">
+<link rel="stylesheet" href="assets/css/home.css">
+</head>
+<body>
+
+<header class="topo">
+  <div class="col topo-in">
+    <a class="marca" href="/">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3.4 20.6l1.3-4.3A8.3 8.3 0 1 1 8 19.4l-4.6 1.2z" stroke="#F0A63C" stroke-width="1.7" stroke-linejoin="round"/>
+        <path d="M8.6 9.2h7M8.6 12.3h7M8.6 15.4h4" stroke="#F3EADB" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      ZapPedidos
+    </a>
+    <nav>
+      <a href="#exemplos">Exemplos</a>
+      <a href="#planos">Planos</a>
+      <a href="#perguntas">Perguntas</a>
+    </nav>
+    <a class="btn btn-acao" data-zap="Olá! Vim pelo site do ZapPedidos e queria saber mais."><span class="so-largo">Falar no&nbsp;</span>WhatsApp</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ abertura ============ -->
+<section class="abertura">
+  <div class="col abertura-grade">
+    <div>
+      <h1>O pedido já chega escrito no seu WhatsApp</h1>
+      <p class="apoio">O ZapPedidos é um <b>sistema de pedidos que funciona direto no WhatsApp</b>. Seu cliente escolhe o que quer numa página sua, pelo celular, e a mensagem chega pronta — somada e organizada. Sem aplicativo para baixar e sem comissão por venda.</p>
+      <div class="abertura-acoes">
+        <a class="btn btn-acao" data-zap="Olá! Quero um sistema de pedidos do ZapPedidos para o meu negócio.">Quero o meu</a>
+        <a class="btn btn-linha" href="#exemplos">Ver funcionando</a>
+      </div>
+      <ul class="fatos">
+        <li><b class="num">R$ 39,90</b> para montar</li>
+        <li><b>2 a 3 dias</b> para entrar no ar</li>
+        <li><b>Zero</b> taxa por pedido</li>
+      </ul>
+    </div>
+
+    <!-- a conversa: o produto inteiro em uma imagem -->
+    <div class="conversa" id="conversa" aria-label="Exemplo de pedido recebido no WhatsApp">
+      <div class="conversa-topo">
+        <div class="conversa-foto" aria-hidden="true">LZ</div>
+        <div>
+          <div class="conversa-nome">Lanchonete do Zé</div>
+          <div class="conversa-estado">online</div>
+        </div>
+      </div>
+      <div class="conversa-corpo" id="conversa-corpo">
+        <div class="digitando" id="digitando" aria-hidden="true"><span></span><span></span><span></span></div>
+
+        <div class="balao" id="balao" hidden>
+          <p class="linha forte">NOVO PEDIDO — Lanchonete do Zé</p>
+          <div class="divisao"></div>
+          <p class="linha">Cliente: Marina Alves</p>
+          <p class="linha">Rua das Palmeiras, 212 — Centro</p>
+          <div class="divisao"></div>
+          <p class="linha num">2x Hambúrguer especial — R$ 65,80</p>
+          <p class="linha num">1x Batata cheddar — R$ 22,90</p>
+          <p class="linha num">1x Milkshake de ovomaltine — R$ 18,90</p>
+          <div class="divisao"></div>
+          <p class="total num"><span>Total</span><span>R$ 107,60</span></p>
+          <p class="linha">Dinheiro — troco para R$ 150,00</p>
+          <p class="rodape-balao">
+            <span class="num">20:41</span>
+            <svg viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M1.6 9.6l2.8 2.8 5.6-6.8M7.4 11.2l1.2 1.2 5.8-6.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ o que é ============ -->
+<section class="faixa faixa-escura">
+  <div class="col">
+    <div class="cabeca surge">
+      <h2>Não é um cardápio. É um sistema de pedidos.</h2>
+      <p>Cardápio é só um dos formatos. O ZapPedidos monta a página do jeito que o seu negócio vende e entrega tudo no mesmo lugar: a sua conversa do WhatsApp, com o pedido já escrito.</p>
+    </div>
+    <div class="trio surge">
+      <div class="trio-item">
+        <h3>Quem vende produto</h3>
+        <p>Lanchonete, pizzaria, doceria, loja. Lista com foto e preço, carrinho, total somado, endereço e forma de pagamento.</p>
+      </div>
+      <div class="trio-item">
+        <h3>Quem vende trabalho</h3>
+        <p>Estúdio de tatuagem, barbearia, salão, assistência. O cliente monta o que quer passo a passo e você recebe o pedido pronto para orçar.</p>
+      </div>
+      <div class="trio-item">
+        <h3>O que vier depois</h3>
+        <p>Encomenda, agendamento, reserva. O caminho é sempre o mesmo: a pessoa escolhe numa página sua e chega escrito no seu WhatsApp.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ exemplo 1: produto ============ -->
+<section class="faixa" id="exemplos">
+  <div class="col mostra surge">
+    <div class="mostra-texto">
+      <span class="etiqueta">Demonstração</span>
+      <h2>Quem vende produto</h2>
+      <p>O cliente escolhe os itens, informa o endereço e a forma de pagamento. A mensagem chega com quantidades, total somado e troco — não falta nada e você não precisa perguntar nada.</p>
+      <a class="btn btn-acao" href="restaurantes/cardapio.html">Abrir o exemplo de lanchonete</a>
+    </div>
+    <div class="tela" aria-hidden="true">
+      <i style="width:52%"></i>
+      <div class="fileira"><i></i><i></i><i class="destaque"></i></div>
+      <i style="width:72%"></i>
+      <i style="width:38%"></i>
+    </div>
+  </div>
+</section>
+
+<!-- ============ exemplo 2: trabalho ============ -->
+<section class="faixa faixa-escura">
+  <div class="col mostra mostra-invertida surge">
+    <div class="mostra-texto">
+      <span class="etiqueta">Demonstração</span>
+      <h2>Quem vende trabalho</h2>
+      <p>No estúdio de tatuagem, o cliente escolhe o lugar no corpo num manequim, arrasta o tamanho em centímetros e marca o estilo. O resumo chega pronto para você orçar — porque preço de tatuagem quem dá é o tatuador, não o site.</p>
+      <a class="btn btn-acao" href="tattoo/tattoo.html">Abrir o exemplo de tatuagem</a>
+    </div>
+    <div class="tela" aria-hidden="true">
+      <div class="corpo-mini">
+        <i class="mini-cabeca"></i>
+        <i class="mini-tronco"></i>
+        <i class="mini-braco"></i>
+        <i class="mini-braco dir"></i>
+        <i class="mini-marca"></i>
+      </div>
+      <div class="pilha">
+        <i style="width:84%"></i>
+        <i class="destaque" style="width:58%"></i>
+        <i style="width:70%"></i>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ como funciona ============ -->
+<section class="faixa">
+  <div class="col">
+    <div class="cabeca surge">
+      <h2>Do seu WhatsApp ao QR Code no balcão</h2>
+      <p>Você não mexe em nada técnico. Manda o material, a gente monta e devolve pronto.</p>
+    </div>
+    <div class="trilho">
+      <div class="etapa surge">
+        <h3>Você manda o que vende</h3>
+        <p>Produtos e preços, ou os tipos de trabalho que você faz. Com foto, se tiver — se não tiver boa, a gente te orienta como tirar com o próprio celular.</p>
+      </div>
+      <div class="etapa surge">
+        <h3>A gente monta a sua página</h3>
+        <p>Nas suas cores, com o seu logo, ligada ao seu número. Você revisa e pede ajuste antes de publicar.</p>
+      </div>
+      <div class="etapa surge">
+        <h3>Você recebe link e QR Code</h3>
+        <p>O QR Code vem pronto para imprimir e colar no balcão, na mesa, na embalagem. O link vai na bio do Instagram.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ vantagens ============ -->
+<section class="faixa faixa-escura">
+  <div class="col">
+    <div class="cabeca surge">
+      <h2>Feito para quem atende e anota ao mesmo tempo</h2>
+    </div>
+    <div class="vantagens surge">
+      <div class="vantagem">
+        <h3>Pedido que não precisa de confirmação</h3>
+        <p>Chega com nome, o que a pessoa escolheu, total e forma de pagamento. Acabou o "me manda de novo o que você quer".</p>
+      </div>
+      <div class="vantagem">
+        <h3>O cliente fala direto com você</h3>
+        <p>Nenhum aplicativo entra no meio da conversa nem fica com uma parte da sua venda.</p>
+      </div>
+      <div class="vantagem">
+        <h3>Abre em qualquer celular</h3>
+        <p>É uma página no navegador. O cliente não instala nada, não cria conta e não inventa senha.</p>
+      </div>
+      <div class="vantagem">
+        <h3>QR Code para imprimir à vontade</h3>
+        <p>Balcão, mesa, cartão de visita, embalagem, story. O mesmo código serve para tudo e não vence.</p>
+      </div>
+      <div class="vantagem">
+        <h3>Com a cara do seu negócio</h3>
+        <p>Suas cores, seu logo, suas fotos. Não é mais um perfil genérico dentro do app de outra empresa.</p>
+      </div>
+      <div class="vantagem">
+        <h3>Preço e itens você mesmo muda</h3>
+        <p>Mandou a alteração no WhatsApp, a gente publica. Até quatro por mês já estão incluídas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ planos ============ -->
+<section class="faixa" id="planos">
+  <div class="col">
+    <div class="cabeca surge">
+      <h2>Planos</h2>
+      <p>Você paga uma vez para montar e depois só a mensalidade, que mantém a página no ar e cobre as alterações. Vale para qualquer um dos planos.</p>
+    </div>
+
+    <h3 class="grupo-titulo surge">Para quem vende produto</h3>
+    <div class="planos surge">
+      <article class="plano">
+        <h3>Básico</h3>
+        <div>
+          <div class="valor num">R$ 39,90</div>
+          <div class="mensal num">uma vez, depois R$ 19,90 por mês</div>
+        </div>
+        <ul>
+          <li>Até 5 produtos</li>
+          <li>Carrinho com total somado</li>
+          <li>QR Code pronto para imprimir</li>
+          <li>Pedidos no seu WhatsApp</li>
+        </ul>
+        <a class="btn btn-linha" data-zap="Olá! Quero o plano Básico do ZapPedidos.">Quero esse plano</a>
+      </article>
+
+      <article class="plano plano-escolhido">
+        <p class="marcador">Mais pedido</p>
+        <h3>Avançado</h3>
+        <div>
+          <div class="valor num">R$ 59,90</div>
+          <div class="mensal num">uma vez, depois R$ 19,90 por mês</div>
+        </div>
+        <ul>
+          <li>Até 10 produtos</li>
+          <li>Carrinho com total somado</li>
+          <li>QR Code pronto para imprimir</li>
+          <li>1 post para o Instagram</li>
+          <li>Pedidos no seu WhatsApp</li>
+        </ul>
+        <a class="btn btn-acao" data-zap="Olá! Quero o plano Avançado do ZapPedidos.">Quero esse plano</a>
+      </article>
+
+      <article class="plano">
+        <h3>Profissional</h3>
+        <div>
+          <div class="valor num">R$ 99,90</div>
+          <div class="mensal num">uma vez, depois R$ 19,90 por mês</div>
+        </div>
+        <ul>
+          <li>Até 25 produtos</li>
+          <li>Carrinho com total somado</li>
+          <li>QR Code pronto para imprimir</li>
+          <li>3 posts para o Instagram</li>
+          <li>Pedidos no seu WhatsApp</li>
+        </ul>
+        <a class="btn btn-linha" data-zap="Olá! Quero o plano Profissional do ZapPedidos.">Quero esse plano</a>
+      </article>
+    </div>
+
+    <h3 class="grupo-titulo grupo-separado surge">Para estúdio de tatuagem</h3>
+    <div class="plano-tattoo surge">
+      <div class="tattoo-oferta">
+        <h3>Tatuagem</h3>
+        <div>
+          <div class="valor num">R$ 39,90</div>
+          <div class="mensal num">uma vez, depois R$ 19,90 por mês</div>
+        </div>
+        <ul>
+          <li>Manequim com frente e costas</li>
+          <li>Régua de tamanho em centímetros</li>
+          <li>Preto e cinza, colorida e cobertura</li>
+          <li>QR Code pronto para imprimir</li>
+          <li>Orçamentos no seu WhatsApp</li>
+        </ul>
+        <p class="tattoo-nota">Plano único: o sistema de orçamento muda pouco depois de pronto. O que muda é o que você tatua — e isso quem escolhe é você, aqui do lado.</p>
+      </div>
+
+      <div class="tattoo-escolha">
+        <h4>Marque os estilos que você tatua</h4>
+        <p class="tattoo-dica">São esses que vão aparecer no orçamento do seu cliente. Pode marcar todos, se você pega de tudo.</p>
+        <div class="estilos" id="estilos"></div>
+        <a class="btn btn-acao" id="botao-tattoo">Quero esse plano</a>
+      </div>
+    </div>
+
+    <p class="nota">Hospedagem, QR Code e até quatro alterações por mês entram em todos os planos. A mensalidade começa no mês seguinte à entrega.</p>
+  </div>
+</section>
+
+<!-- ============ perguntas ============ -->
+<section class="faixa faixa-escura" id="perguntas">
+  <div class="col">
+    <div class="cabeca surge">
+      <h2>Perguntas que todo mundo faz</h2>
+    </div>
+    <div class="perguntas surge">
+      <details>
+        <summary>Serve só para comida?</summary>
+        <p>Não. O ZapPedidos é um sistema de pedidos, e comida é só o caso mais comum. Hoje já roda em estúdio de tatuagem, com manequim e régua de tamanho em vez de carrinho. Serve para barbearia, salão, doceria, loja de roupa, assistência técnica e qualquer negócio que hoje anota pedido ou orçamento no WhatsApp.</p>
+      </details>
+      <details>
+        <summary>É pagamento único ou mensal?</summary>
+        <p>Os dois. O valor do plano você paga uma vez, na montagem. Depois fica R$ 19,90 por mês, que mantém a página no ar e cobre as alterações do mês. Vale igual para o plano de tatuagem.</p>
+      </details>
+      <details>
+        <summary>Como altero preços ou itens depois?</summary>
+        <p>Manda no WhatsApp o que mudou e a gente publica. A mensalidade inclui até quatro alterações por mês, uma por semana na prática. Quem precisa mudar mais que isso, a gente combina um valor à parte.</p>
+      </details>
+      <details>
+        <summary>Quanto tempo leva para ficar pronto?</summary>
+        <p>De dois a três dias úteis depois que você mandar o material. Com tudo completo, costuma sair antes.</p>
+      </details>
+      <details>
+        <summary>Preciso ter domínio próprio ou site?</summary>
+        <p>Não precisa de nada. Sua página fica no nosso endereço, como zappedidos.shop/seunegocio, e a hospedagem já está no plano. Você não paga domínio nem servidor à parte.</p>
+      </details>
+      <details>
+        <summary>Como eu recebo os pedidos?</summary>
+        <p>No seu WhatsApp de sempre, o mesmo número que você já usa. Ao finalizar, o cliente abre uma conversa com você já com tudo escrito. Você só confirma.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ chamada final ============ -->
+<section class="chamada">
+  <div class="col">
+    <div class="chamada-caixa surge">
+      <div>
+        <h2>Conta o que você vende que a gente te mostra na hora</h2>
+        <p>Chama no WhatsApp, diz o tipo do seu negócio e a gente monta uma prévia da sua página para você ver antes de decidir.</p>
+      </div>
+      <a class="btn btn-claro" data-zap="Olá! Quero ver uma prévia da página do meu negócio.">Chamar no WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="rodape">
+  <div class="col rodape-in">
+    <span>© <span id="ano">2026</span> ZapPedidos — sistema de pedidos no WhatsApp</span>
+    <nav>
+      <a href="#exemplos">Exemplos</a>
+      <a href="#planos">Planos</a>
+      <a href="#perguntas">Perguntas</a>
+      <a data-zap="Olá! Vim pelo site do ZapPedidos e queria saber mais.">WhatsApp</a>
+    </nav>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Service","name":"ZapPedidos — sistema de pedidos direto no WhatsApp",
+     "url":"https://zappedidos.shop/","areaServed":"BR","inLanguage":"pt-BR",
+     "description":"Sistema de pedidos com página própria, link e QR Code, que envia o pedido pronto para o WhatsApp do negócio. Para quem vende produto e para quem vende trabalho, como estúdio de tatuagem.",
+     "offers":{"@type":"AggregateOffer","priceCurrency":"BRL","lowPrice":"39.90","highPrice":"99.90","offerCount":"4"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Serve só para comida?","acceptedAnswer":{"@type":"Answer","text":"Não. O ZapPedidos é um sistema de pedidos e comida é só o caso mais comum. Já roda em estúdio de tatuagem, com manequim e régua de tamanho, e serve para barbearia, salão, doceria, loja e qualquer negócio que anote pedido ou orçamento no WhatsApp."}},
+      {"@type":"Question","name":"É pagamento único ou mensal?","acceptedAnswer":{"@type":"Answer","text":"O valor do plano é pago uma vez, na montagem. Depois fica R$ 19,90 por mês, que mantém a página no ar e cobre as alterações do mês."}},
+      {"@type":"Question","name":"Como altero preços ou itens depois?","acceptedAnswer":{"@type":"Answer","text":"Manda no WhatsApp o que mudou e a gente publica. A mensalidade inclui até quatro alterações por mês."}},
+      {"@type":"Question","name":"Quanto tempo leva para ficar pronto?","acceptedAnswer":{"@type":"Answer","text":"De dois a três dias úteis depois que você mandar o material."}},
+      {"@type":"Question","name":"Preciso ter domínio próprio ou site?","acceptedAnswer":{"@type":"Answer","text":"Não. A página fica no nosso endereço, como zappedidos.shop/seunegocio, e a hospedagem já está no plano."}},
+      {"@type":"Question","name":"Como eu recebo os pedidos?","acceptedAnswer":{"@type":"Answer","text":"No seu WhatsApp de sempre. Ao finalizar, o cliente abre uma conversa com você já com tudo escrito."}}
+    ]}
+  ]
+}
+</script>
+
+<script src="assets/js/home.js"></script>
+</body>
+</html>

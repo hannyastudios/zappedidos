@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exemplo de cardápio digital (lanchonete) | ZapPedidos</title>
+<meta name="description" content="Demonstração de cardápio digital do ZapPedidos: o cliente monta o pedido pelo celular e a mensagem chega pronta no WhatsApp, com itens, total, pagamento e troco.">
+<link rel="canonical" href="https://zappedidos.shop/restaurantes/cardapio.html">
+<meta name="robots" content="noindex,follow">
+<meta name="theme-color" content="#06161E">
+
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ZapPedidos">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://zappedidos.shop/restaurantes/cardapio.html">
+<meta property="og:title" content="Exemplo de cardápio digital — ZapPedidos">
+<meta property="og:description" content="Monte um pedido e veja a mensagem chegar pronta no WhatsApp. É uma demonstração.">
+<meta property="og:image" content="https://zappedidos.shop/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zappedidos.shop/img/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/tema.css">
+<link rel="stylesheet" href="../assets/css/cardapio.css">
+</head>
+<body class="tem-aviso">
+
+<header class="topo">
+  <div class="col topo-in">
+    <a class="voltar" href="../index.html">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Voltar
+    </a>
+    <span class="marca" style="margin-left:auto;margin-right:16px">Lanchonete Demo</span>
+    <button type="button" class="carrinho-botao" id="botao-carrinho" data-acao="abrir" data-vazio="sim">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3 4h2.2l2.3 11.2a1.6 1.6 0 0 0 1.6 1.3h8.3a1.6 1.6 0 0 0 1.6-1.2L21 8H6.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="10" cy="20" r="1.4" fill="currentColor"/>
+        <circle cx="17.5" cy="20" r="1.4" fill="currentColor"/>
+      </svg>
+      <span class="so-leitor">Ver meu pedido —</span>
+      <span class="conta" id="cart-count">0</span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="capa">
+    <div class="col">
+      <h1>Lanchonete Demo</h1>
+      <p>Escolha o que você quer, confira o total e mande o pedido pelo WhatsApp. Entrega de terça a domingo, das 18h às 23h.</p>
+    </div>
+  </section>
+
+  <div class="col">
+    <div class="vitrine" id="produtos"></div>
+  </div>
+</main>
+
+<div class="cortina" id="overlay" data-acao="fechar"></div>
+
+<aside class="gaveta" id="sidebar" aria-label="Seu pedido">
+  <div class="gaveta-topo">
+    <h2>Seu pedido</h2>
+    <button type="button" class="fechar" data-acao="fechar" aria-label="Fechar o pedido">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="gaveta-rolagem">
+    <div id="itens"></div>
+
+    <div class="campo">
+      <label for="nome">Seu nome</label>
+      <input type="text" id="nome" placeholder="Ex.: Marina Alves" autocomplete="name">
+    </div>
+    <div class="campo">
+      <label for="endereco">Endereço para entrega</label>
+      <input type="text" id="endereco" placeholder="Rua, número, bairro" autocomplete="street-address">
+    </div>
+
+    <div class="pagamentos" role="group" aria-label="Forma de pagamento">
+      <button type="button" class="pagamento" id="option-dinheiro" data-pagamento="dinheiro" aria-pressed="false">
+        <span>Dinheiro<small>Pagamento na entrega</small></span>
+        <svg class="marca-check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="pagamento" id="option-cartao" data-pagamento="cartao" aria-pressed="false">
+        <span>Cartão<small>Crédito ou débito na entrega</small></span>
+        <svg class="marca-check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="pagamento" id="option-pix" data-pagamento="pix" aria-pressed="false">
+        <span>PIX<small>A chave chega no WhatsApp</small></span>
+        <svg class="marca-check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div class="campo" id="troco-container" hidden>
+      <label for="troco">Precisa de troco para quanto?</label>
+      <input type="text" id="troco" placeholder="Ex.: R$ 100,00" inputmode="decimal" autocomplete="off">
+    </div>
+  </div>
+
+  <div class="gaveta-pe">
+    <p class="soma"><span>Total</span><strong id="total">R$ 0,00</strong></p>
+    <p class="erro-carrinho" id="erro-carrinho" role="alert"></p>
+    <button type="button" class="btn btn-acao" data-acao="enviar">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3.4 20.6l1.3-4.3A8.3 8.3 0 1 1 8 19.4l-4.6 1.2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      </svg>
+      Mandar pedido no WhatsApp
+    </button>
+  </div>
+</aside>
+
+<p class="aviso-demo">
+  Demonstração — o pedido vai para o WhatsApp do ZapPedidos, não para uma lanchonete.
+  <a href="../index.html">Quero um assim para o meu negócio</a>
+</p>
+
+<script>
+/* Para montar a página de um cliente: copie este arquivo, troque
+   whatsapp, loja, produtos e ponha demo: false. */
+window.ZAP = {
+  whatsapp: "5524992346329",
+  loja: "Lanchonete Demo",
+  demo: true,
+  tempo: "45-60 min",
+  produtos: [
+    { id: 1, nome: "Hambúrguer especial",  preco: 32.90, img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600" },
+    { id: 2, nome: "Batata cheddar",       preco: 22.90, img: "https://images.unsplash.com/photo-1576107232684-1279f390859f?w=600" },
+    { id: 3, nome: "Milkshake ovomaltine", preco: 18.90, img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600" },
+    { id: 4, nome: "Wrap fit",             preco: 28.90, img: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=600" },
+    { id: 5, nome: "Salada caesar",        preco: 25.90, img: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=600" },
+    { id: 6, nome: "Pizza individual",     preco: 35.90, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600" }
+  ]
+};
+</script>
+<script src="../assets/js/carrinho.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,274 @@
+/* ===================================================================
+   ZapPedidos — demonstração de orçamento de tatuagem
+   Depende de tema.css. Nenhuma imagem: o manequim e os desenhos são SVG.
+   =================================================================== */
+
+.estudio{
+  display: grid;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 56px);
+  padding: clamp(26px, 3.5vw, 44px) 0 40px;
+  align-items: start;
+}
+
+/* ---------------------------------------------------------------
+   Coluna do manequim — acompanha a rolagem, então a pessoa vê a
+   prévia mudar sem a página pular para lugar nenhum
+   --------------------------------------------------------------- */
+.palco{
+  position: sticky;
+  top: 86px;
+  background: var(--noite);
+  border: var(--borda-fina);
+  border-radius: var(--raio-g);
+  padding: 18px;
+}
+.palco-topo{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.lado{
+  display: inline-flex;
+  padding: 3px;
+  background: var(--breu);
+  border: var(--borda-fina);
+  border-radius: 999px;
+}
+.lado button{
+  border: 0;
+  background: transparent;
+  color: var(--bruma);
+  font: 600 14px/1 Inter, sans-serif;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.lado button[aria-pressed="true"]{ background: var(--mar); color: var(--areia) }
+
+.medida{
+  font: 600 14px/1 Inter, sans-serif;
+  color: var(--ambar);
+  font-variant-numeric: tabular-nums;
+}
+
+.corpo-svg{
+  width: 100%;
+  height: auto;
+  max-height: 58vh;
+  display: block;
+  margin-inline: auto;
+}
+/* a silhueta é uma peça lisa só: nenhuma divisão do corpo aparece */
+.corpo-svg .silhueta path{
+  fill: var(--mar);
+  stroke: var(--linha);
+  stroke-width: 1.2;
+  stroke-linejoin: miter;
+}
+
+/* a área escolhida: um clarear de luz na pele, não uma mancha colorida
+   (âmbar translúcido sobre o azul do corpo dava um verde sujo) */
+.corpo-svg .destaque{
+  fill: #ffffff;
+  fill-opacity: .09;
+  pointer-events: none;
+}
+
+/* as partes do corpo: existem para o clique e para o recorte,
+   mas não desenham nada enquanto ninguém encosta nelas */
+.corpo-svg .regiao{
+  fill: #ffffff;
+  fill-opacity: 0;
+  cursor: pointer;
+  transition: fill-opacity .14s ease;
+}
+.corpo-svg .regiao:hover{ fill-opacity: .07 }
+.corpo-svg .regiao:focus-visible{
+  outline: none;
+  fill-opacity: .1;
+  stroke: var(--ambar-cl);
+  stroke-width: 1.6;
+}
+
+.corpo-svg .tinta{ color: var(--areia); pointer-events: none }
+.corpo-svg .tinta.colorida{ color: var(--ambar-cl) }
+
+/* frase que se escreve sozinha conforme a pessoa escolhe */
+.frase{
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: var(--borda-fina);
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--bruma);
+  min-height: 4.6em;
+}
+.frase b{ color: var(--areia); font-weight: 600 }
+.frase .vazio{ color: var(--fumaca) }
+.recado{
+  margin-top: 8px;
+  font-size: 13.5px;
+  color: var(--tijolo);
+}
+
+/* ---------------------------------------------------------------
+   Coluna dos controles
+   --------------------------------------------------------------- */
+.passo{ padding: 0 0 26px; margin: 0; min-width: 0 }
+/* a divisória é um pseudo-elemento: a borda de <fieldset> abre um vão
+   em volta do <legend> e saía cortando o título ao meio */
+.passo + .passo{ position: relative; padding-top: 26px }
+.passo + .passo::before{
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: var(--linha);
+}
+.passo-titulo{
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 700;
+  font-size: 1.22rem;
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  margin: 0 0 4px;
+}
+.passo .dica{ color: var(--fumaca); font-size: 14px; margin-bottom: 14px }
+
+.opcoes{ display: flex; flex-wrap: wrap; gap: 9px }
+.opcao{
+  border: var(--borda-fina);
+  background: var(--noite);
+  color: var(--bruma);
+  font: 500 15px/1 Inter, sans-serif;
+  padding: 11px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color .15s ease, color .15s ease, background-color .15s ease;
+}
+.opcao:hover{ border-color: var(--bruma); color: var(--areia) }
+.opcao[aria-pressed="true"]{
+  border-color: var(--ambar);
+  background: rgba(240,166,60,.12);
+  color: var(--ambar-cl);
+}
+
+/* ---- régua de tamanho ---- */
+.regua{ display: grid; gap: 10px }
+.regua-valor{
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--areia);
+  font-variant-numeric: tabular-nums;
+}
+.regua-valor span{ font-family: Inter, sans-serif; font-size: 15px; font-weight: 500; color: var(--fumaca) }
+
+input[type="range"]{
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 34px;
+  background: transparent;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-runnable-track{
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--ambar) var(--preenchido,0%), var(--mar) var(--preenchido,0%));
+}
+input[type="range"]::-moz-range-track{ height: 6px; border-radius: 999px; background: var(--mar) }
+input[type="range"]::-moz-range-progress{ height: 6px; border-radius: 999px; background: var(--ambar) }
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px; height: 24px;
+  margin-top: -9px;
+  border-radius: 50%;
+  background: var(--ambar);
+  border: 3px solid var(--breu);
+  box-shadow: 0 0 0 1px var(--ambar);
+}
+input[type="range"]::-moz-range-thumb{
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--ambar);
+  border: 3px solid var(--breu);
+}
+input[type="range"]:focus-visible{ outline: 2px solid var(--ambar-cl); outline-offset: 4px; border-radius: 999px }
+.regua-limites{
+  display: flex;
+  justify-content: space-between;
+  color: var(--fumaca);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- campos ---- */
+.campo{ display: grid; gap: 6px; margin-top: 14px }
+.campo label{ font-size: 14px; font-weight: 600; color: var(--bruma) }
+.campo input, .campo textarea{
+  width: 100%;
+  padding: 13px 15px;
+  border: var(--borda-fina);
+  border-radius: var(--raio-p);
+  background: var(--noite);
+  color: var(--areia);
+  font: 400 16px/1.5 Inter, system-ui, sans-serif;
+}
+.campo textarea{ min-height: 96px; resize: vertical }
+.campo input::placeholder, .campo textarea::placeholder{ color: var(--fumaca) }
+.campo input:focus, .campo textarea:focus{ outline: none; border-color: var(--ambar) }
+
+.enviar{ margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center }
+.enviar .btn{ flex: 1 1 260px }
+.enviar .erro{ color: var(--tijolo); font-size: 14px; flex: 1 1 100% }
+
+/* ---------------------------------------------------------------
+   Celular
+   --------------------------------------------------------------- */
+@media (max-width: 900px){
+  .estudio{ grid-template-columns: 1fr; gap: 20px }
+
+  /* No celular só o visor fica grudado no topo. A frase sai de dentro
+     dele e rola junto com os controles: presa lá, ela era cortada no
+     meio e o painel ainda cobria o botão de enviar. */
+  /* display:contents dissolve o painel no grid da página. Sem isso o
+     visor só ficava grudado enquanto o painel estava na tela — e o
+     painel é curto, então o manequim sumia logo no começo da lista. */
+  .palco{ display: contents }
+  .palco-visor{
+    position: sticky;
+    top: 58px;
+    z-index: 20;
+    padding: 12px 14px;
+    background: var(--noite);
+    border: var(--borda-fina);
+    border-radius: var(--raio-g);
+    box-shadow: 0 16px 22px -18px rgba(0,0,0,.95);
+  }
+  .corpo-svg{ max-height: 32vh }
+  .frase{
+    min-height: 0;
+    margin-top: 14px;
+    padding: 14px 16px;
+    border-top: 0;
+    border: var(--borda-fina);
+    border-radius: var(--raio-g);
+    background: var(--noite);
+    font-size: 14.5px;
+  }
+  .recado{ font-size: 13px; padding: 0 2px }
+}
+
+/* As vistas trocam por classe, não por hidden: o atributo hidden do HTML
+   não vale dentro de SVG, e a propriedade .hidden também não existe nesse
+   namespace — a vista "escondida" continuava visível e roubando os cliques. */
+.corpo-svg .vista{ display: none }
+.corpo-svg .vista.ativa{ display: inline }
