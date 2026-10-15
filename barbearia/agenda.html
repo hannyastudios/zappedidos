@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exemplo de agendamento de barbearia pelo WhatsApp | ZapPedidos</title>
+<meta name="description" content="Demonstração do ZapPedidos para barbearia: o cliente escolhe o que vai fazer, o dia e o horário, e o pedido chega pronto no WhatsApp do barbeiro para confirmar.">
+<link rel="canonical" href="https://zappedidos.shop/barbearia/agenda.html">
+<meta name="robots" content="noindex,follow">
+<meta name="theme-color" content="#06161E">
+
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ZapPedidos">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://zappedidos.shop/barbearia/agenda.html">
+<meta property="og:title" content="Exemplo de agendamento de barbearia — ZapPedidos">
+<meta property="og:description" content="Escolha o que vai fazer, o dia e o horário. O agendamento chega pronto no WhatsApp. É uma demonstração.">
+<meta property="og:image" content="https://zappedidos.shop/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zappedidos.shop/img/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/tema.css">
+<link rel="stylesheet" href="../assets/css/barbearia.css">
+</head>
+<body class="tem-aviso">
+
+<header class="topo">
+  <div class="col topo-in">
+    <a class="voltar" href="../index.html">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Voltar
+    </a>
+    <span class="marca" style="margin-left:auto;margin-right:0">Barbearia Demo</span>
+  </div>
+</header>
+
+<section class="capa-barbearia">
+  <div class="col">
+    <h1>Marque seu horário</h1>
+    <p>Escolha o que você vai fazer e o melhor dia. O barbeiro confirma no WhatsApp — se já tiver alguém naquele horário, ele te oferece o mais próximo.</p>
+  </div>
+</section>
+
+<main class="col marcacao">
+
+  <form class="controles" id="forma" novalidate>
+
+    <section class="passo" role="group" aria-labelledby="t1">
+      <h2 class="passo-titulo" id="t1">O que você vai fazer</h2>
+      <p class="dica">Pode marcar mais de uma coisa. O corte é um só.</p>
+
+      <p class="rotulo-grupo">Corte</p>
+      <div class="opcoes" id="lista-corte"></div>
+
+      <p class="rotulo-grupo">Mais alguma coisa</p>
+      <div class="opcoes" id="lista-extras"></div>
+
+      <p class="rotulo-grupo">Química</p>
+      <div class="opcoes" id="lista-quimica"></div>
+    </section>
+
+    <section class="passo" role="group" aria-labelledby="t2">
+      <h2 class="passo-titulo" id="t2">Quando</h2>
+      <p class="dica">Escolha o dia e depois o horário.</p>
+      <div class="dias" id="dias" role="group" aria-label="Dia"></div>
+      <div class="horarios" id="horarios" role="group" aria-label="Horário"></div>
+    </section>
+
+    <section class="passo" role="group" aria-labelledby="t3">
+      <h2 class="passo-titulo" id="t3">Seus dados</h2>
+      <div class="campo">
+        <label for="nome">Seu nome</label>
+        <input type="text" id="nome" placeholder="Ex.: Marco Antônio" autocomplete="name">
+      </div>
+      <div class="campo">
+        <label for="recado">Alguma observação (opcional)</label>
+        <textarea id="recado" placeholder="Ex.: quero manter o topo mais comprido"></textarea>
+      </div>
+    </section>
+  </form>
+
+  <aside class="resumo" aria-label="Resumo do agendamento">
+    <h2>Seu agendamento</h2>
+    <dl>
+      <div>
+        <dt>Você vai fazer</dt>
+        <dd id="resumo-servicos" class="vazio">Nada escolhido ainda</dd>
+      </div>
+      <div>
+        <dt>Dia e horário</dt>
+        <dd id="resumo-quando" class="vazio">Nenhum horário escolhido</dd>
+      </div>
+    </dl>
+
+    <button type="submit" form="forma" class="btn btn-acao">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3.4 20.6l1.3-4.3A8.3 8.3 0 1 1 8 19.4l-4.6 1.2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      </svg>
+      Mandar no WhatsApp
+    </button>
+    <p class="erro" id="erro" role="alert"></p>
+
+    <p class="combinado">O horário fica combinado quando o barbeiro responder. Ele olha a agenda dele e confirma, ou te manda o horário mais perto que estiver livre.</p>
+  </aside>
+</main>
+
+<p class="aviso-demo">
+  Demonstração — o agendamento vai para o WhatsApp do ZapPedidos, não para uma barbearia.
+  <a href="../index.html">Quero um assim para o meu negócio</a>
+</p>
+
+<script>
+/* Para montar a página de um cliente: copie este arquivo, troque
+   whatsapp, loja, horários e serviços, e ponha demo: false. */
+window.ZAP = {
+  whatsapp: "5524992346329",
+  loja: "Barbearia Demo",
+  demo: true,
+
+  /* agenda */
+  dias: 14,                 /* quantos dias para a frente mostrar */
+  fechado: [0, 1],          /* 0 = domingo, 1 = segunda */
+  abre: "09:00",
+  fecha: "19:00",
+  passo: 30,                /* de quantos em quantos minutos */
+  almoco: ["12:00", "13:30"],
+
+  /* o que a barbearia faz */
+  corte: [
+    "Só na máquina",
+    "Tesoura e máquina",
+    "Só na tesoura",
+    "Não vou cortar"
+  ],
+  extras: [
+    "Barba",
+    "Sobrancelha",
+    "Pezinho",
+    "Hidratação"
+  ],
+  quimica: [
+    "Pintura",
+    "Descoloração",
+    "Platinado"
+  ]
+};
+</script>
+<script src="../assets/js/barbearia.js"></script>
+
+</body>
+</html>
