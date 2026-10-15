@@ -1,0 +1,232 @@
+/* ===================================================================
+   ZapPedidos — agendamento de barbearia
+   Depende de tema.css. Sem imagem, sem biblioteca, sem servidor:
+   a grade de dias e horários é montada no próprio navegador.
+   =================================================================== */
+
+.marcacao{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
+  gap: clamp(28px, 4vw, 54px);
+  padding: clamp(24px, 3.5vw, 40px) 0 40px;
+  align-items: start;
+}
+/* sem isto a tira de dias, que rola de lado, estica a coluna inteira
+   e a página ganha rolagem horizontal no celular */
+.marcacao > *{ min-width: 0 }
+
+/* ---------------------------------------------------------------
+   Capa
+   --------------------------------------------------------------- */
+.capa-barbearia{ padding: clamp(32px, 5vw, 56px) 0 0 }
+.capa-barbearia h1{ font-size: clamp(1.9rem, 4.4vw, 2.8rem); max-width: 16ch; margin-bottom: 12px }
+.capa-barbearia p{ color: var(--bruma); max-width: 56ch }
+
+/* ---------------------------------------------------------------
+   Passos
+   --------------------------------------------------------------- */
+.passo{ padding: 0 0 28px; margin: 0; min-width: 0 }
+.passo + .passo{ position: relative; padding-top: 28px }
+.passo + .passo::before{
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: var(--linha);
+}
+.passo-titulo{
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 700;
+  font-size: 1.22rem;
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  margin: 0 0 4px;
+}
+.passo .dica{ color: var(--fumaca); font-size: 14px; margin: 0 0 14px }
+
+.rotulo-grupo{
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--bruma);
+  margin: 18px 0 9px;
+}
+.rotulo-grupo:first-of-type{ margin-top: 4px }
+
+.opcoes{ display: flex; flex-wrap: wrap; gap: 9px }
+.opcao{
+  border: var(--borda-fina);
+  background: var(--noite);
+  color: var(--bruma);
+  font: 500 15px/1 Inter, sans-serif;
+  padding: 12px 17px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color .15s ease, color .15s ease, background-color .15s ease;
+}
+.opcao:hover{ border-color: var(--bruma); color: var(--areia) }
+.opcao[aria-pressed="true"]{
+  border-color: var(--ambar);
+  background: rgba(240,166,60,.12);
+  color: var(--ambar-cl);
+}
+
+/* ---------------------------------------------------------------
+   Dias — tira que rola de lado
+   --------------------------------------------------------------- */
+.dias{
+  display: flex;
+  gap: 9px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+.dia{
+  flex: none;
+  scroll-snap-align: start;
+  min-width: 68px;
+  padding: 11px 10px 12px;
+  border: var(--borda-fina);
+  border-radius: 14px;
+  background: var(--noite);
+  color: var(--bruma);
+  cursor: pointer;
+  text-align: center;
+  line-height: 1.25;
+  transition: border-color .15s ease, background-color .15s ease, color .15s ease;
+}
+.dia:hover{ border-color: var(--bruma); color: var(--areia) }
+.dia .semana{ display: block; font-size: 12px; font-weight: 600; text-transform: lowercase }
+.dia .numero{
+  display: block;
+  font-family: Fraunces, Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--areia);
+  font-variant-numeric: tabular-nums;
+}
+.dia .mes{ display: block; font-size: 11.5px; color: var(--fumaca) }
+.dia[aria-pressed="true"]{
+  border-color: var(--ambar);
+  background: rgba(240,166,60,.12);
+  color: var(--ambar-cl);
+}
+.dia[aria-pressed="true"] .numero,
+.dia[aria-pressed="true"] .mes{ color: var(--ambar-cl) }
+
+/* ---------------------------------------------------------------
+   Horários
+   --------------------------------------------------------------- */
+.horarios{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 9px;
+  margin-top: 16px;
+}
+.hora{
+  padding: 12px 6px;
+  border: var(--borda-fina);
+  border-radius: 12px;
+  background: var(--noite);
+  color: var(--bruma);
+  font: 600 15px/1 Inter, sans-serif;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: border-color .15s ease, background-color .15s ease, color .15s ease;
+}
+.hora:hover{ border-color: var(--bruma); color: var(--areia) }
+.hora[aria-pressed="true"]{
+  border-color: var(--ambar);
+  background: var(--ambar);
+  color: #22160A;
+}
+.turno{
+  grid-column: 1 / -1;
+  margin: 10px 0 2px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--fumaca);
+}
+.turno:first-child{ margin-top: 0 }
+.sem-horario{ color: var(--fumaca); font-size: 14.5px; padding: 10px 2px }
+
+/* ---------------------------------------------------------------
+   Campos
+   --------------------------------------------------------------- */
+.campo{ display: grid; gap: 6px; margin-top: 14px }
+.campo label{ font-size: 14px; font-weight: 600; color: var(--bruma) }
+.campo input, .campo textarea{
+  width: 100%;
+  padding: 13px 15px;
+  border: var(--borda-fina);
+  border-radius: var(--raio-p);
+  background: var(--noite);
+  color: var(--areia);
+  font: 400 16px/1.5 Inter, system-ui, sans-serif;
+}
+.campo textarea{ min-height: 84px; resize: vertical }
+.campo input::placeholder, .campo textarea::placeholder{ color: var(--fumaca) }
+.campo input:focus, .campo textarea:focus{ outline: none; border-color: var(--ambar) }
+
+/* ---------------------------------------------------------------
+   Resumo — acompanha a rolagem
+   --------------------------------------------------------------- */
+.resumo{
+  position: sticky;
+  top: 86px;
+  background: var(--noite);
+  border: var(--borda-fina);
+  border-radius: var(--raio-g);
+  padding: 22px;
+}
+.resumo h2{ font-size: 1.3rem; margin-bottom: 14px }
+.resumo dl{ margin: 0; display: grid; gap: 12px }
+.resumo dt{ font-size: 12.5px; font-weight: 600; color: var(--fumaca); margin-bottom: 2px }
+.resumo dd{ margin: 0; color: var(--areia); font-size: 15.5px; line-height: 1.5 }
+.resumo dd.vazio{ color: var(--fumaca) }
+.resumo ul{ list-style: none; margin: 0; padding: 0; display: grid; gap: 5px }
+.resumo li{ position: relative; padding-left: 22px; font-size: 15.5px }
+.resumo li::before{
+  content: "";
+  position: absolute;
+  left: 2px; top: .52em;
+  width: 10px; height: 5px;
+  border-left: 1.8px solid var(--ambar);
+  border-bottom: 1.8px solid var(--ambar);
+  transform: rotate(-45deg);
+}
+.resumo .quando{
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 700;
+  font-size: 1.32rem;
+  color: var(--ambar-cl);
+  line-height: 1.25;
+}
+.resumo .btn{ width: 100%; margin-top: 20px }
+.resumo .erro{ color: var(--tijolo); font-size: 14px; margin-top: 10px }
+
+/* o aviso de que o horário ainda não está garantido */
+.combinado{
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: var(--borda-fina);
+  color: var(--fumaca);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+/* ---------------------------------------------------------------
+   Celular
+   --------------------------------------------------------------- */
+@media (max-width: 900px){
+  .marcacao{ grid-template-columns: 1fr; gap: 24px }
+  /* o resumo deixa de ser grudento e vai para o fim, antes do botão */
+  .resumo{ position: static }
+  .horarios{ grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)) }
+}
+
+/* a tira de dias rola de lado: um esmaecido na ponta avisa que tem mais */
+.dias{
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 36px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 36px), transparent);
+}
